@@ -19,10 +19,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
-        <div className="bg-white border-2 border-gray-900 rounded-lg mx-3 mt-3 mb-3">
+        
           <Header></Header>
           {children}
-        </div>
       </body>
     </html>
   );
