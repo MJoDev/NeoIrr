@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import Header from "./components/Header/Header";
 import "./globals.css";
 import '@fontsource-variable/onest'
+import { BluetoothProvider } from "./utils/BluetoothContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,9 +20,10 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className={inter.className}>
-        
+        <BluetoothProvider>
           <Header></Header>
           {children}
+        </BluetoothProvider>   
       </body>
     </html>
   );

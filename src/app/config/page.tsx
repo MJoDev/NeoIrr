@@ -5,20 +5,34 @@ import StatusFailed from "../components/StatusFailed/StatusFailed";
 import StatusOK from "../components/StatusOK/StatusOK";
 import { useState } from "react";
 import "./style.css";
-import { connectToBluetoothDevice } from "../utils/bluetooth";
 import BluetoothIcon from "../utils/icons/bluetoothIcon";
+import { useBluetooth } from "../utils/BluetoothContext";
  
 export default function ConfigPage() {
 
     const [ isDeviceConnected, setIsDeviceConnected ] = useState(false);
     const [ error, setError] = useState(false);
+    const { setDevice, setServer } = useBluetooth();
 
-    const checkBluetoothConnection = async () => {
-        setError(false) // Reset error state
-        const isConnected = await connectToBluetoothDevice();
-        if (isConnected) {
-          setIsDeviceConnected(true);
-        } else {
+    const connectToDevice = async () => {
+        try {
+          const device = await navigator.bluetooth.requestDevice({
+            acceptAllDevices: true
+          });
+
+          const server = await device.gatt?.connect();
+          if (server) {
+            setDevice(device);
+            setServer(server);
+            setIsDeviceConnected(true);
+          }else {
+            console.error('Failed to connect to the device');
+            setError(true);
+          }
+          
+        } catch (error) {
+          console.error('Error connecting to the device:', error);
+          setIsDeviceConnected(false);
           setError(true);
         }
       };
@@ -32,7 +46,7 @@ export default function ConfigPage() {
                 <div className="text-xl text-center mt-6">
                     Press the blue Button in the device and then press the "Connect" Button below
                 </div> 
-                <button onClick={checkBluetoothConnection} className="check flex">Connect <BluetoothIcon className="w-6 h-6"/></button>
+                <button onClick={connectToDevice} className="check flex">Connect <BluetoothIcon className="w-6 h-6"/></button>
                 {isDeviceConnected && <StatusOK></StatusOK>} 
                 {error && <StatusFailed></StatusFailed>}
             </div>
