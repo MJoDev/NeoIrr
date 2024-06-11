@@ -17,8 +17,7 @@ export default function ConfigPage() {
     const connectToDevice = async () => {
         try {
           const device = await navigator.bluetooth.requestDevice({
-            acceptAllDevices: true, 
-            optionalServices:  ['battery_service'] 
+            filters: [{ services: ['181A'] }] // UUID del servicio de sensores
           });
 
           const server = await device.gatt?.connect();

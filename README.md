@@ -20,45 +20,63 @@ Abrir (https://localhost:3000) en el navegador para conseguir la pagina.
 En el código Arduino, se deben definir los servicios y características que el dispositivo BLE ofrece.
 Si se usa un BLE compatible se debe definir y encontrar los UUIDs de los servicios y características en la documentación del módulo o en el código del firmware que estás utilizando.
 
+El bluetooth esta configurado para aceptar solo dispositivos con el filtro de servicios disponibles "181A".
+
+El servicio de los sensores deberia llamarse 181A (Se puede cambiar en el codigo de config a preferencia)
+Mientras que la caracteristica de proximidad "2A19" y la caracteristica de luz "2A1C". Como se ve en el código de abajo:
+
 ```bash
     #include <BLEPeripheral.h>
 
-    BLEPeripheral blePeripheral;
-    BLEService sensorService("181A"); // Environmental Sensing
-    BLECharacteristic proximityCharacteristic("2A19", BLENotify, 2);
-    BLECharacteristic lightCharacteristic("2A1C", BLENotify, 2);
+BLEPeripheral blePeripheral;
+BLEService sensorService("181A"); // UUID del servicio de sensores
 
-    const int proximitySensorPin = A0;
-    const int lightSensorPin = A1;
-    const int buttonPin = 2;
+// Características de proximidad y luz
+BLECharacteristic proximityCharacteristic("2A19", BLENotify, 2);
+BLECharacteristic lightCharacteristic("2A1C", BLENotify, 2);
 
-    void setup() {
-    pinMode(proximitySensorPin, INPUT);
-    pinMode(lightSensorPin, INPUT);
-    pinMode(buttonPin, INPUT_PULLUP);
-    
-    blePeripheral.setLocalName("SensorDevice");
-    blePeripheral.setAdvertisedServiceUuid(sensorService.uuid());
-    blePeripheral.addAttribute(sensorService);
-    blePeripheral.addAttribute(proximityCharacteristic);
-    blePeripheral.addAttribute(lightCharacteristic);
+const int proximitySensorPin = A0;  // Pin del sensor de proximidad
+const int lightSensorPin = A1;      // Pin del sensor de luz
+const int proximityButtonPin = 2;   // Pin del botón de proximidad
+const int lightButtonPin = 3;       // Pin del botón de luz
 
-    blePeripheral.begin();
-    }
+void setup() {
+  pinMode(proximitySensorPin, INPUT);
+  pinMode(lightSensorPin, INPUT);
+  pinMode(proximityButtonPin, INPUT_PULLUP);
+  pinMode(lightButtonPin, INPUT_PULLUP);
+  
+  // Configuración BLE
+  blePeripheral.setLocalName("SensorDevice");
+  blePeripheral.setAdvertisedServiceUuid(sensorService.uuid());
+  blePeripheral.addAttribute(sensorService);
+  blePeripheral.addAttribute(proximityCharacteristic);
+  blePeripheral.addAttribute(lightCharacteristic);
 
-    void loop() {
-    blePeripheral.poll();
+  blePeripheral.begin();
+  Serial.begin(9600);    // Configura la velocidad de transmisión del monitor serie
+}
 
-    if (digitalRead(buttonPin) == LOW) {
-        int proximityValue = analogRead(proximitySensorPin);
-        int lightValue = analogRead(lightSensorPin);
-        
-        proximityCharacteristic.setValue(proximityValue);
-        lightCharacteristic.setValue(lightValue);
-        
-        delay(500); // Debounce
-    }
-    }
+void loop() {
+  blePeripheral.poll();
+
+    //Si de presiona el boton Amarillo.
+  if (digitalRead(proximityButtonPin) == LOW) {
+    int proximityValue = analogRead(proximitySensorPin);
+    proximityCharacteristic.setValue(proximityValue);
+    Serial.print("Proximity: ");
+    Serial.println(proximityValue);
+    delay(500);  // Debounce del botón
+  }
+    //Si se presiona el boton Rojo.
+  if (digitalRead(lightButtonPin) == LOW) {
+    int lightValue = analogRead(lightSensorPin);
+    lightCharacteristic.setValue(lightValue);
+    Serial.print("Light: ");
+    Serial.println(lightValue);
+    delay(500);  // Debounce del botón
+  }
+}
 ```
 
 
