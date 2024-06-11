@@ -1,6 +1,12 @@
+"use client"
+import { useEffect, useState } from "react"
 import BackButton from "../components/BackButton/BackButton"
+import { useBluetooth } from "../utils/BluetoothContext";
 
 export default function RecordPage() {
+
+    const { server } = useBluetooth();
+    const [proximityData, setProximityData] = useState<number[]>([]);
 
     const logs = [
         { id: 1, name: 'logs' },

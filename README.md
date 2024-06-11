@@ -1,8 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+## Primeros pasos
 
-First, run the development server:
+Para correr el proyecto en fase Dev:
 
 ```bash
 npm run dev
@@ -14,23 +13,52 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abrir (https://localhost:3000) en el navegador para conseguir la pagina.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Arduino
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+En el código Arduino, se deben definir los servicios y características que el dispositivo BLE ofrece.
+Si se usa un BLE compatible se debe definir y encontrar los UUIDs de los servicios y características en la documentación del módulo o en el código del firmware que estás utilizando.
 
-## Learn More
+```bash
+    #include <BLEPeripheral.h>
 
-To learn more about Next.js, take a look at the following resources:
+    BLEPeripheral blePeripheral;
+    BLEService sensorService("181A"); // Environmental Sensing
+    BLECharacteristic proximityCharacteristic("2A19", BLENotify, 2);
+    BLECharacteristic lightCharacteristic("2A1C", BLENotify, 2);
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+    const int proximitySensorPin = A0;
+    const int lightSensorPin = A1;
+    const int buttonPin = 2;
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+    void setup() {
+    pinMode(proximitySensorPin, INPUT);
+    pinMode(lightSensorPin, INPUT);
+    pinMode(buttonPin, INPUT_PULLUP);
+    
+    blePeripheral.setLocalName("SensorDevice");
+    blePeripheral.setAdvertisedServiceUuid(sensorService.uuid());
+    blePeripheral.addAttribute(sensorService);
+    blePeripheral.addAttribute(proximityCharacteristic);
+    blePeripheral.addAttribute(lightCharacteristic);
 
-## Deploy on Vercel
+    blePeripheral.begin();
+    }
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+    void loop() {
+    blePeripheral.poll();
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    if (digitalRead(buttonPin) == LOW) {
+        int proximityValue = analogRead(proximitySensorPin);
+        int lightValue = analogRead(lightSensorPin);
+        
+        proximityCharacteristic.setValue(proximityValue);
+        lightCharacteristic.setValue(lightValue);
+        
+        delay(500); // Debounce
+    }
+    }
+```
+
+
