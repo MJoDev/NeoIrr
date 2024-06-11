@@ -62,7 +62,7 @@ export default function GeneralPage() {
     return (
         <div className="flex flex-col h-screen justify-between"> 
             <div className="mx-4">
-                <div className="bg-black text-white text-4xl text-center font-bold mb-10">
+                <div className="bg-black text-white text-4xl text-center font-bold mb-10 mt-10">
                     GENERAL
                 </div> 
                 { !server ? <div>
@@ -72,7 +72,7 @@ export default function GeneralPage() {
                 <button onClick={handleButtonClick} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                 <div className="bg-white border border-gray-400 rounded-md p-8 shadow-md w-80 mx-auto">
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                        <div className="text-6xl font-bold text-center">{proximityData.map((data, index) => (
+                        <div className="text-6xl font-bold text-center text-gray-700">0{proximityData.map((data, index) => (
           <div key={index}>{data}</div>
         ))}<div className="text-sm text-gray-500">REF: 10-40 CM</div></div>
                     </div>
@@ -83,7 +83,7 @@ export default function GeneralPage() {
                 <button className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                 <div className="bg-white border border-gray-400 rounded-md p-8 shadow-md w-80 mx-auto mb-5">
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                        <div className="text-6xl font-bold text-center">{lightData.map((data, index) => (
+                        <div className="text-6xl font-bold text-center text-gray-700">0{lightData.map((data, index) => (
           <div key={index}>{data}</div>
         ))}<div className="text-sm text-gray-500">REF: 40 - 63 [uW/cm2/nm]</div></div>
                     </div>

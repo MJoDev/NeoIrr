@@ -40,7 +40,7 @@ export default function ConfigPage() {
     return (
         <div className="flex flex-col h-screen justify-between"> 
             <div className="mx-4">
-                <div className="bg-black text-white text-4xl text-center font-bold mb-10">
+                <div className="bg-black text-white text-4xl text-center font-bold mb-10 mt-10">
                     CONFIG
                 </div> 
                 <div className="text-xl text-center mt-6">

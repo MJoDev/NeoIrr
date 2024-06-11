@@ -17,7 +17,7 @@ export default function RecordPage() {
     return (
         <div className="flex flex-col h-screen justify-between"> 
             <div className="mx-4">
-                <div className="bg-black text-white text-4xl text-center font-bold mb-10">
+                <div className="bg-black text-white text-4xl text-center font-bold mb-10 mt-10">
                     RECORD
                 </div> 
                 <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
