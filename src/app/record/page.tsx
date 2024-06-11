@@ -19,7 +19,7 @@ export default function RecordPage() {
                         <div className="space-y-4">
                             <div className="flex items-center">
                                 <label className="ml-3 text-sm font-medium text-gray-700">TAG / SN / ID:</label>
-                                <input type="checkbox" className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5 grid"/>
+                                <input type="checkbox" className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
                             </div>
                         </div>
                     </form>
