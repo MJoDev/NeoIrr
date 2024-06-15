@@ -1,14 +1,17 @@
 "use client"
 import { useEffect, useState } from 'react';
 import BackButton from "../components/BackButton/BackButton";
-import RecordButton from "../components/RecordButton/RecordButton";
 import { useBluetooth } from "../utils/BluetoothContext";
+import { useRouter } from 'next/navigation';
 
 export default function GeneralPage() {
 
     const { server } = useBluetooth();
     const [proximityData, setProximityData] = useState<number[]>([]);
     const [lightData, setLightData] = useState<number[]>([]);
+    const router = useRouter();
+    
+    
 
     useEffect(() => {
       const receiveData = async () => {
@@ -59,6 +62,20 @@ export default function GeneralPage() {
       }
     };
 
+    const handleSaveClick = () => {
+      if (proximityData.length > 0 && lightData.length > 0) {
+        const dataToSave = {
+          proximityData,
+          lightData,
+          timestamp: new Date().toISOString(),
+        };
+        localStorage.setItem('currentData', JSON.stringify(dataToSave));
+        router.push('/save');
+      } else {
+        alert('No data to save!');
+      }
+    };
+
     return (
         <div className="flex flex-col h-screen justify-between"> 
             <div className="mx-4">
@@ -96,7 +113,9 @@ export default function GeneralPage() {
                 
             </div>
             <div className="ml-2 mx-2 grid grid-cols-2"> 
-                <RecordButton/>
+              <button onClick={handleSaveClick} className="rounded-full border border-blue-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5">
+                   REC
+               </button>
                 <BackButton/>
             </div>
         </div>
