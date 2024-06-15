@@ -17,7 +17,8 @@ export default function ConfigPage() {
     const connectToDevice = async () => {
         try {
           const device = await navigator.bluetooth.requestDevice({
-            filters: [{ services: ['181A'] }] // UUID del servicio de sensores
+            acceptAllDevices: true,
+            optionalServices: ["12345678-1234-5678-1234-56789abcdef0"], // UUID del servicio de sensores
           });
 
           const server = await device.gatt?.connect();
@@ -44,7 +45,7 @@ export default function ConfigPage() {
                     CONFIG
                 </div> 
                 <div className="text-xl text-center mt-6">
-                    Press the blue Button in the device and then press the &quot;Connect&ldquo; Button below
+                    Press the Blue Button in the device and then press the &quot;Connect&ldquo; Button below
                 </div> 
                 <button onClick={connectToDevice} className="check flex">Connect <BluetoothIcon className="w-6 h-6"/></button>
                 {isDeviceConnected && <StatusOK></StatusOK>} 

@@ -26,14 +26,14 @@ El servicio de los sensores deberia llamarse 181A (Se puede cambiar en el codigo
 Mientras que la caracteristica de proximidad "2A19" y la caracteristica de luz "2A1C". Como se ve en el código de abajo:
 
 ```bash
-    #include <BLEPeripheral.h>
+#include <BLEPeripheral.h>
 
 BLEPeripheral blePeripheral;
-BLEService sensorService("181A"); // UUID del servicio de sensores
+BLEService sensorService("12345678-1234-5678-1234-56789abcdef0"); // UUID de 128 bits del servicio de sensores
 
 // Características de proximidad y luz
-BLECharacteristic proximityCharacteristic("2A19", BLENotify, 2);
-BLECharacteristic lightCharacteristic("2A1C", BLENotify, 2);
+BLECharacteristic proximityCharacteristic("12345678-1234-5678-1234-56789abcdef1", BLENotify, 2);
+BLECharacteristic lightCharacteristic("12345678-1234-5678-1234-56789abcdef2", BLENotify, 2);
 
 const int proximitySensorPin = A0;  // Pin del sensor de proximidad
 const int lightSensorPin = A1;      // Pin del sensor de luz
@@ -54,13 +54,12 @@ void setup() {
   blePeripheral.addAttribute(lightCharacteristic);
 
   blePeripheral.begin();
-  Serial.begin(9600);    // Configura la velocidad de transmisión del monitor serie
+  Serial.begin(9600);   
 }
 
 void loop() {
   blePeripheral.poll();
 
-    //Si de presiona el boton Amarillo.
   if (digitalRead(proximityButtonPin) == LOW) {
     int proximityValue = analogRead(proximitySensorPin);
     proximityCharacteristic.setValue(proximityValue);
@@ -68,7 +67,7 @@ void loop() {
     Serial.println(proximityValue);
     delay(500);  // Debounce del botón
   }
-    //Si se presiona el boton Rojo.
+
   if (digitalRead(lightButtonPin) == LOW) {
     int lightValue = analogRead(lightSensorPin);
     lightCharacteristic.setValue(lightValue);
