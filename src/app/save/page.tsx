@@ -83,15 +83,28 @@ const SavePage = () => {
                 <div className="bg-black text-white text-4xl text-center font-bold mb-5 mt-10">
                     REC
                 </div> 
-                <div className='grid grid-cols-2 gap-2'>
-                    <button className="bg-gray-400 text-white text-4xl text-center font-bold">
-                        GENERAL
-                    </button>
-                    <button className="bg-gray-400 text-white text-4xl text-center font-bold">
-                        MATRIX
-                    </button>  
-                </div>
-                {!data && (
+                { data && (
+                  <div className='grid grid-cols-2 gap-2'>
+                  <button className="bg-gray-800 text-white text-3xl text-center font-bold">
+                      GENERAL
+                  </button>
+                  <button className="bg-gray-400 text-white text-3xl text-center font-bold">
+                      MATRIX
+                  </button>  
+                   </div>
+                )}
+                { matrixData && (
+                  <div className='grid grid-cols-2 gap-2'>
+                  <button className="bg-gray-400 text-white text-3xl text-center font-bold">
+                      GENERAL
+                  </button>
+                  <button className="bg-gray-800 text-white text-3xl text-center font-bold">
+                      MATRIX
+                  </button>  
+                   </div>
+                )}
+                
+                {data || matrixData && (
                   <div className='grid mt-10'>
                       <div className='mt-5'>
                           <label className="block mb-2 text-md font-medium text-gray-900 ">DD/MM/YYY</label>
@@ -110,8 +123,8 @@ const SavePage = () => {
             </div>
             <div className="ml-2 mx-2"> 
                 <div className='grid grid-cols-2'>
-                    <button onClick={saveData} className="rounded-full border border-blue-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">SAVE</button>
-                    <button  onClick={handleShareClick} disabled={isShareButtonDisabled} className="rounded-full border border-blue-800 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">SHARE</button>
+                    <button onClick={saveData} className="rounded-full border border-blue-800 bg-blue-800 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">SAVE</button>
+                    <button  onClick={handleShareClick} disabled={isShareButtonDisabled} className="rounded-full border border-blue-600 bg-blue-600 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">SHARE</button>
                 </div>
                 <BackButton/>
             </div>

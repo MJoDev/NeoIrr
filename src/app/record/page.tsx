@@ -43,9 +43,9 @@ export default function RecordPage() {
                 <div className="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md">
                     <form>
                         <div className="space-y-4">
-                            <div className="flex items-center">
+                            <div className="grid items-center">
                                 {savedRecords.map((record, index) => (
-                                    <div className="flex">
+                                    <div className="flex mb-10">
                                         <label className="ml-3 text-sm font-medium text-gray-700">TAG/SN/ID: {record.id}</label>
                                         <input type="checkbox" checked={selectedRecords.has(index)} onChange={() => handleCheckboxChange(index)} className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
                                     </div>
@@ -57,7 +57,7 @@ export default function RecordPage() {
                 </div>
             </div>
             <div className="ml-2 mx-2 grid"> 
-                <button className="rounded-full border border-red-500 flex justify-center items-center mb-5 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" onClick={handleDeleteSelected} disabled={selectedRecords.size === 0}>
+                <button className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-5 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" onClick={handleDeleteSelected} disabled={selectedRecords.size === 0}>
                     DELETE SELECTED
                 </button>
                 <BackButton/>

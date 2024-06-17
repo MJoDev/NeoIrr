@@ -48,13 +48,13 @@ const SharePage = () => {
                     SHARE
                 </div>  
                 <div className='grid mt-40'>
-                    <button  onClick={() => handleShare('email')} className="rounded-full border border-red-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">MAIL</button>
-                    <button  onClick={() => handleShare('whatsapp')} className="rounded-full border border-green-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">WHATSAPP</button>
+                    <button  onClick={() => handleShare('email')} className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">MAIL</button>
+                    <button  onClick={() => handleShare('whatsapp')} className="rounded-full border border-green-600 bg-green-600 flex text-white justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">WHATSAPP</button>
                 </div>
                 
             </div>
             <div className="ml-2 mx-2"> 
-                <Link href={'/save'} className="rounded-full border border-black flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5">
+                <Link href={'/save'} className="rounded-full border border-black bg-black text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5">
                     BACK
                 </Link>
             </div>
