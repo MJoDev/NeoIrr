@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import BackButton from '../components/BackButton/BackButton';
 
 const SavePage = () => {
+  const [matrixData, setMatrixData] = useState<{ proximityData: string[], lightData: string[] } | null>(null);
   const [data, setData] = useState<any>(null);
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
@@ -11,13 +12,17 @@ const SavePage = () => {
 
   useEffect(() => {
     const storedData = localStorage.getItem('currentData');
+    const data = localStorage.getItem('matrixData');
+    if (data) {
+      setMatrixData(JSON.parse(data));
+    }
     if (storedData) {
       setData(JSON.parse(storedData));
     }
   }, []);
 
   const saveData = () => {
-    if (data) {
+    if (data && date && id) {
       const newRecord = {
         ...data,
         id,
@@ -29,11 +34,26 @@ const SavePage = () => {
       localStorage.removeItem('currentData');
       alert('Data saved successfully!');
       router.push('/record');
+    } else if (matrixData && date && id) {
+      const record = {
+        id,
+        date,
+        proximityData: matrixData.proximityData,
+        lightData: matrixData.lightData,
+      };
+      const savedRecords = JSON.parse(localStorage.getItem('savedRecords') || '[]');
+      savedRecords.push(record);
+      localStorage.setItem('savedRecords', JSON.stringify(savedRecords));
+      alert('Data saved successfully!');
+      localStorage.removeItem('matrixData');
+      router.push('/'); // Redirect to home or records page after saving
+    } else {
+      alert('Please fill in all fields before saving.');
     }
   };
 
   const handleShareClick = () => {
-    if (id && date) {
+    if (data &&id && date) {
       const shareData = {
         ...data,
         id,
@@ -41,6 +61,17 @@ const SavePage = () => {
       };
       localStorage.setItem('shareData', JSON.stringify(shareData));
       router.push('/share');
+    } else if (matrixData && id && date) {
+      const shareData = {
+        id,
+        date,
+        proximityData: matrixData.proximityData,
+        lightData: matrixData.lightData,
+      };
+      localStorage.setItem('shareDataMatrix', JSON.stringify(shareData));
+      router.push('/share');
+    } else {
+      alert('Please fill in all fields before sharing.');
     }
   };
   const isShareButtonDisabled = !id || !date;
