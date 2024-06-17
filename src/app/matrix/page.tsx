@@ -4,7 +4,7 @@ import { useState } from "react";
 import BackButton from "../components/BackButton/BackButton";
 import Matrix from "../components/Matrix/Matrix";
 import RecordButton from "../components/RecordButton/RecordButton";
-
+import { useBluetooth } from "../utils/BluetoothContext";
 
 
 export default function MatrixPage() {

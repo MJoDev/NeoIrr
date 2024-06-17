@@ -8,20 +8,25 @@ import Link from 'next/link';
 
 const SharePage = () => {
   const [data, setData] = useState<any>(null);
+  const [dataMatrix, setDataMatrix] = useState<any>(null);
   const router = useRouter();
 
   useEffect(() => {
     const storedData = localStorage.getItem('shareData');
+    const storedDataMatrix = localStorage.getItem('shareDataMatrix');
+    if (storedDataMatrix) {
+      setDataMatrix(JSON.parse(storedDataMatrix));
+    }
     if (storedData) {
       setData(JSON.parse(storedData));
     } else {
-      //router.push('/save');
+      router.push('/save');
     }
   }, [router]);
 
   const handleShare = (method: 'email' | 'whatsapp') => {
     if (data) {
-        const dataString = `ID: ${data.id}\nDescription: ${data.description}\nDate: ${data.date}\n\nProximity Data:\n${data.proximityData.join(', ')}\n\nLight Intensity Data:\n${data.lightData.join(', ')}`;
+        const dataString = `ID: ${data.id}\nDate: ${data.date}\n\nProximity Data:\n${data.proximityData}\n\n, Light Intensity Data:\n${data.lightData}`;
         const encodedDataString = encodeURIComponent(dataString);
       if (method === 'email') {
         window.location.href = `mailto:?subject=Sensor Data&body=${encodedDataString}`;
