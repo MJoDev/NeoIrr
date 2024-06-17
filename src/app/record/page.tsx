@@ -5,14 +5,34 @@ import { useBluetooth } from "../utils/BluetoothContext";
 
 export default function RecordPage() {
 
-    const { server } = useBluetooth();
-    const [proximityData, setProximityData] = useState<number[]>([]);
+    const [savedRecords, setSavedRecords] = useState<any[]>([]);
+    const [selectedRecords, setSelectedRecords] = useState<Set<number>>(new Set());
 
-    const logs = [
-        { id: 1, name: 'logs' },
-        { id: 2, name: 'Samsung' },
-        { id: 3, name: 'Xiaomi' },
-    ]
+    useEffect(() => {
+        const records = localStorage.getItem('savedRecords');
+        if (records) {
+          setSavedRecords(JSON.parse(records));
+        }
+      }, []);
+
+    const handleCheckboxChange = (index: number) => {
+        setSelectedRecords((prevSelectedRecords) => {
+          const newSelectedRecords = new Set(prevSelectedRecords);
+          if (newSelectedRecords.has(index)) {
+            newSelectedRecords.delete(index);
+          } else {
+            newSelectedRecords.add(index);
+          }
+          return newSelectedRecords;
+        });
+      };
+
+      const handleDeleteSelected = () => {
+        const updatedRecords = savedRecords.filter((_, index) => !selectedRecords.has(index));
+        setSavedRecords(updatedRecords);
+        localStorage.setItem('savedData', JSON.stringify(updatedRecords));
+        setSelectedRecords(new Set());
+      };
 
     return (
         <div className="flex flex-col h-screen justify-between"> 
@@ -24,14 +44,22 @@ export default function RecordPage() {
                     <form>
                         <div className="space-y-4">
                             <div className="flex items-center">
-                                <label className="ml-3 text-sm font-medium text-gray-700">TAG / SN / ID:</label>
-                                <input type="checkbox" className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
+                                {savedRecords.map((record, index) => (
+                                    <div className="flex">
+                                        <label className="ml-3 text-sm font-medium text-gray-700">TAG/SN/ID: {record.id}</label>
+                                        <input type="checkbox" checked={selectedRecords.has(index)} onChange={() => handleCheckboxChange(index)} className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
+                                    </div>
+                                ))}
+                                
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-            <div className="ml-2 mx-2"> 
+            <div className="ml-2 mx-2 grid"> 
+                <button className="rounded-full border border-red-500 flex justify-center items-center mb-5 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" onClick={handleDeleteSelected} disabled={selectedRecords.size === 0}>
+                    Delete Selected
+                </button>
                 <BackButton/>
             </div>
         </div>

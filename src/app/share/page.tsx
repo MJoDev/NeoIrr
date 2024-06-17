@@ -2,8 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import BackButton from '../components/BackButton/BackButton';
-import SpecialButton from '../components/SpecialButton/SpecialButton';
 import Link from 'next/link';
 
 const SharePage = () => {
@@ -16,8 +14,7 @@ const SharePage = () => {
     const storedDataMatrix = localStorage.getItem('shareDataMatrix');
     if (storedDataMatrix) {
       setDataMatrix(JSON.parse(storedDataMatrix));
-    }
-    if (storedData) {
+    }else if (storedData) {
       setData(JSON.parse(storedData));
     } else {
       router.push('/save');
@@ -33,7 +30,15 @@ const SharePage = () => {
       } else if (method === 'whatsapp') {
         window.location.href = `https://wa.me/?text=${encodedDataString}`;
       }
+    } if (dataMatrix) {
+      const dataString = `ID: ${dataMatrix.id}\nDate: ${dataMatrix.date}\n\nProximity Data:\n${dataMatrix.proximityData}\n\n, Light Intensity Data:\n${dataMatrix.lightData}`;
+      const encodedDataString = encodeURIComponent(dataString);
+    if (method === 'email') {
+      window.location.href = `mailto:?subject=Sensor Data&body=${encodedDataString}`;
+    } else if (method === 'whatsapp') {
+      window.location.href = `https://wa.me/?text=${encodedDataString}`;
     }
+  } 
   };
 
   return (

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import BackButton from "../components/BackButton/BackButton";
 import Matrix from "../components/Matrix/Matrix";
 import RecordButton from "../components/RecordButton/RecordButton";
@@ -19,6 +19,8 @@ export default function MatrixPage() {
     const [isNextClicked, setIsNextClicked] = useState(false);
     const router = useRouter();
     const [isReading, setIsReading] = useState(true);
+    const proximityIntervalRef = useRef<NodeJS.Timeout | null>(null);
+    
     // Función para cambiar la sección
     const toggleSection = () => {
         setShowSection(prevSection => (prevSection === 'section1' ? 'section2' : 'section1'));
