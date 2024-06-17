@@ -58,7 +58,7 @@ export default function RecordPage() {
             </div>
             <div className="ml-2 mx-2 grid"> 
                 <button className="rounded-full border border-red-500 flex justify-center items-center mb-5 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" onClick={handleDeleteSelected} disabled={selectedRecords.size === 0}>
-                    Delete Selected
+                    DELETE SELECTED
                 </button>
                 <BackButton/>
             </div>
