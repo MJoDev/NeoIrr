@@ -14,11 +14,11 @@ export default function MatrixPage() {
     const text: string[] = ["00", "01", "02", "10", "11", "12", "20", "21", "22"];
     const { server } = useBluetooth();
     const [proximityData, setProximityData] = useState<number[]>([]);
-    const [lightData, setLightData] = useState<string[]>(Array(9).fill(''));
+    const [lightData, setLightData] = useState<string[]>(["00", "01", "02", "10", "11", "12", "20", "21", "22"]);
     const [showSection, setShowSection] = useState('section1');
     const [isNextClicked, setIsNextClicked] = useState(false);
     const router = useRouter();
-    const [isReading, setIsReading] = useState(false);
+    const [isReading, setIsReading] = useState(true);
     // Función para cambiar la sección
     const toggleSection = () => {
         setShowSection(prevSection => (prevSection === 'section1' ? 'section2' : 'section1'));
@@ -36,7 +36,9 @@ export default function MatrixPage() {
                 setProximityData(newProximityData);
             } catch(error){
                 console.log("Error receiving data from the device:", error);
-        }  
+        }
+    }else{
+        alert("Bluetooth not connected")
     }
     }
     const readData = async () => {
@@ -52,6 +54,7 @@ export default function MatrixPage() {
                     setLightData(newLightData);
                     await new Promise(resolve => setTimeout(resolve, 10000)); // Wait for 10 seconds
                   }
+                  setIsReading(false)
 
             } catch(error){
                 console.log("Error receiving data from the device:", error);
@@ -62,18 +65,17 @@ export default function MatrixPage() {
     }
 
     const handleReadAndSaveClick = async () => {
-        setIsReading(true);
-        await readProximityData();
-        await new Promise(resolve => setTimeout(resolve, 10000)); // Wait for 10 seconds before starting light intensity readings
-        await readData();
-        setIsReading(false);
-    
+        
+        if (proximityData.length > 0 && !setIsReading) {
         const dataToSave = {
           proximityData,
           lightData,
         };
-        localStorage.setItem('matrixData', JSON.stringify(dataToSave));
-        router.push('/save');
+            localStorage.setItem('matrixData', JSON.stringify(dataToSave));
+            router.push('/save');
+        } else {
+            alert('No data to save!');
+        }
       };
 
     return (
@@ -100,7 +102,7 @@ export default function MatrixPage() {
                             Press the Red Button in the device
                         </div>
                         <button onClick={readData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
-                        <Matrix text={text}/>
+                        <Matrix text={lightData}/>
                     </div>
                 )}
                 
