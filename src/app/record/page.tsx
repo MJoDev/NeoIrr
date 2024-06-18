@@ -61,7 +61,7 @@ export default function RecordPage() {
       };
 
       const isMatrixMode = (lightData: any): boolean => {
-        return Array.isArray(lightData);
+        return Array.isArray(lightData) && lightData.length >= 3;
       };
     
 
@@ -94,6 +94,7 @@ export default function RecordPage() {
                           <p>{`MODE: ${isMatrixMode(selectedRecord.lightData) ? 'MATRIX' : 'GENERAL'}`}</p>
                           <p>{`DATE: ${selectedRecord.date}`}</p>
                           <p>{`TAG/SN/ID: ${selectedRecord.id}`}</p>
+                          <p>OB.: </p>
                           <p>{`P(0,y) = ${selectedRecord.proximityData}`}</p>
                           {!isMatrixMode(selectedRecord.lightData) ? (
                             <p>{`G(x,y) = ${selectedRecord.lightData}`}</p>
