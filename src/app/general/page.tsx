@@ -76,6 +76,16 @@ export default function GeneralPage() {
       }
     };
 
+     const getProximityStyle = () => {
+      const proximity = proximityData[0];
+      return proximity < 10 || proximity > 40 || proximity === undefined ? { color: 'red' } : { color: 'black' };
+     };
+
+     const getLightStyle = () => {
+      const light = lightData[0];
+      return light < 40 || light > 63 || light === undefined ? { color: 'red' } : { color: 'black' };
+     };
+
     return (
         <div className="flex flex-col h-screen justify-between"> 
             <div className="mx-4">
@@ -87,23 +97,21 @@ export default function GeneralPage() {
                     Press the Yellow Button in the device
                 </div>
                 <button onClick={() => handleButtonClick('P')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
-                <div className="bg-white border border-gray-400 rounded-md p-8 shadow-md w-80 mx-auto">
+                <div className="bg-white borderrounded-md p-8 shadow-md w-80 mx-auto">
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                        <div className="text-6xl font-bold text-center text-gray-700">0{proximityData.map((data, index) => (
-          <div key={index}>{data}</div>
-        ))}<div className="text-sm text-gray-500">REF: 10-40 CM</div></div>
+                        <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData[0] || '0'}`}</div>
                     </div>
+                    <div className="text-md text-black text-center mt-5">REF: 10-40 CM</div>
                 </div>
                 <div className="text-xl text-center mt-6 mb-4">
                     Press the Red Button in the device
                 </div>
                 <button onClick={() => handleButtonClick('L')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
-                <div className="bg-white border border-gray-400 rounded-md p-8 shadow-md w-80 mx-auto mb-5">
+                <div className="bg-white borde rounded-md p-8 shadow-md w-80 mx-auto mb-5">
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                        <div className="text-6xl font-bold text-center text-gray-700">0{lightData.map((data, index) => (
-          <div key={index}>{data}</div>
-        ))}<div className="text-sm text-gray-500">REF: 40 - 63 [uW/cm2/nm]</div></div>
+                        <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()}>{`${lightData[0] || '0'}`}</div>
                     </div>
+                    <div className="text-md text-black text-center mt-5">REF: 40 - 63 [uW/cm2/nm]</div>
                 </div>
                 </div> : <div>
                 <div className="text-xl text-center mt-6 mb-4">

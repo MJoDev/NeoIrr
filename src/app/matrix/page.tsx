@@ -11,7 +11,6 @@ import { read } from "fs";
 
 export default function MatrixPage() {
 
-    const text: string[] = ["00", "01", "02", "10", "11", "12", "20", "21", "22"];
     const { server } = useBluetooth();
     const [proximityData, setProximityData] = useState<number[]>([]);
     const [lightData, setLightData] = useState<string[]>(["00", "01", "02", "10", "11", "12", "20", "21", "22"]);
@@ -66,6 +65,11 @@ export default function MatrixPage() {
         }
     }
 
+    const getProximityStyle = () => {
+        const proximity = proximityData[0];
+        return proximity < 10 || proximity > 40 || proximity === undefined ? { color: 'red' } : { color: 'black' };
+    };
+
     const handleReadAndSaveClick = async () => {
         
         if (proximityData.length > 0 && !setIsReading) {
@@ -92,10 +96,11 @@ export default function MatrixPage() {
                             Press the Yellow Button in the device
                         </div>
                         <button onClick={readProximityData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
-                        <div className="bg-white border border-gray-400 rounded-md p-8 shadow-md w-80 mx-auto">
+                        <div className="bg-white border rounded-md p-8 shadow-md w-80 mx-auto">
                             <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                                <div className="text-6xl font-bold text-center text-gray-700">0<div className="text-sm text-gray-500">REF: 10-40 CM</div></div>
+                                <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData[0] || '0'}`}</div>
                             </div>
+                            <div className="text-md text-center text-black mt-5">REF: 10-40 CM</div>
                         </div>
                     </div>
                 ) : (
