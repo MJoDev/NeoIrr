@@ -42,7 +42,7 @@ export default function RecordPage() {
         setSavedRecords(updatedRecords);
         localStorage.setItem('shareData', JSON.stringify(updatedRecords));
         setSelectedRecords(new Set());
-        router.push('/share');
+        router.push('/sharemany');
       };
     
       const handleDoubleClick = (record: any) => {

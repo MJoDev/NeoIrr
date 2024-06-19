@@ -19,9 +19,8 @@ const ShareManyPage = () => {
 
   const handleShare = (method: 'email' | 'whatsapp') => {
     if (data) {
-        const dataString = data.map((record, index) => `LOG ${index+1}:\nID: ${record.id}\nDate: ${record.date}\n\nP(0, y):\n${record.proximityData}\n\n,G(x, y):\n${record.lightData}`).join('\n\n');
+        const dataString = data.map((record, index) => `LOG ${index+1}:\n ID: ${record.id}\n Date: ${record.date}\n\n P(0, y):\n${record.proximityData}\n\n G(x, y):\n${record.lightData}`).join('\n\n');
         var encodedDataString = encodeURIComponent(dataString);
-        console.log(dataString)
       if (method === 'email') {
         window.location.href = `mailto:?subject=Sensor Data&body=${encodedDataString}`;
       } else if (method === 'whatsapp') {
@@ -29,7 +28,7 @@ const ShareManyPage = () => {
       }
     } 
   };
-  
+
 
   return (
     <div className="flex flex-col h-screen justify-between"> 
