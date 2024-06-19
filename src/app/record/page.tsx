@@ -33,7 +33,7 @@ export default function RecordPage() {
       const handleDeleteSelected = () => {
         const updatedRecords = savedRecords.filter((_, index) => !selectedRecords.has(index));
         setSavedRecords(updatedRecords);
-        localStorage.setItem('savedData', JSON.stringify(updatedRecords));
+        localStorage.setItem('savedRecords', JSON.stringify(updatedRecords));
         setSelectedRecords(new Set());
       };
 
@@ -86,8 +86,8 @@ export default function RecordPage() {
                         <div className="space-y-4">
                             <div className="grid items-center">
                                 {savedRecords.map((record, index) => (
-                                    <div className="grid grid-cols-2  mb-10" key={index}>
-                                        <label className="ml-3 text-sm font-medium text-gray-700" onClick={() => handleDoubleClick(record)}>TAG/SN/ID: {record.id}</label>
+                                    <div className="flex mb-10" key={index}>
+                                        <label className="ml-10 text-sm font-medium text-gray-700" onClick={() => handleDoubleClick(record)}>TAG/SN/ID: {record.id}</label>
                                         <input type="checkbox" checked={selectedRecords.has(index)} onChange={() => handleCheckboxChange(index)} className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
                                     </div>
                                 ))}
