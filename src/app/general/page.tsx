@@ -78,12 +78,18 @@ export default function GeneralPage() {
 
      const getProximityStyle = () => {
       const proximity = proximityData[0];
-      return proximity < 10 || proximity > 40 || proximity === undefined ? { color: 'red' } : { color: 'black' };
+      if(proximityData[0] == undefined){
+        return { color: 'lightgray' };
+      }
+      return proximity < 10 || proximity > 40 ? { color: 'red' } : { color: 'black' };
      };
 
      const getLightStyle = () => {
       const light = lightData[0];
-      return light < 40 || light > 63 || light === undefined ? { color: 'red' } : { color: 'black' };
+      if(lightData[0] == undefined){
+        return { color: 'lightgray' };
+      }
+      return light < 40 || light > 63 ? { color: 'red' } : { color: 'black' };
      };
 
     return (

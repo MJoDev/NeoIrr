@@ -2,12 +2,14 @@
 import { useEffect, useState } from "react"
 import BackButton from "../components/BackButton/BackButton"
 import { useBluetooth } from "../utils/BluetoothContext";
+import { useRouter } from 'next/navigation';
 
 export default function RecordPage() {
 
     const [savedRecords, setSavedRecords] = useState<any[]>([]);
     const [selectedRecords, setSelectedRecords] = useState<Set<number>>(new Set());
     const [selectedRecord, setSelectedRecord] = useState<any | null>(null);
+    const router = useRouter();
 
     useEffect(() => {
         const records = localStorage.getItem('savedRecords');
@@ -34,6 +36,14 @@ export default function RecordPage() {
         localStorage.setItem('savedData', JSON.stringify(updatedRecords));
         setSelectedRecords(new Set());
       };
+
+      const handleShareSelected = () => {
+        const updatedRecords = savedRecords.filter((_, index) => selectedRecords.has(index));
+        setSavedRecords(updatedRecords);
+        localStorage.setItem('shareData', JSON.stringify(updatedRecords));
+        setSelectedRecords(new Set());
+        router.push('/share');
+      };
     
       const handleDoubleClick = (record: any) => {
         setSelectedRecord(record);
@@ -43,20 +53,19 @@ export default function RecordPage() {
         setSelectedRecord(null);
       };
 
-      const handleShare = () => {
+      const handleShareClick = () => {
         if (selectedRecord) {
-          const message = `ID: ${selectedRecord.id}\nDate: ${selectedRecord.date}\nP(0, y): ${selectedRecord.proximityData}\nG(x, y): ${selectedRecord.lightData.join(', ')}`;
-          const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
-          window.open(whatsappUrl, '_blank');
-        }
-      };
-
-      const handleShareEmail = () => {
-        if (selectedRecord) {
-          const subject = `Record ID: ${selectedRecord.id}`;
-          const body = `ID: ${selectedRecord.id}\nDate: ${selectedRecord.date}\nP(0, y): ${selectedRecord.proximityData}\nG(x, y): ${selectedRecord.lightData.join(', ')}`;
-          const mailtoUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-          window.open(mailtoUrl, '_blank');
+          const shareData = {
+            ...selectedRecord,
+            id: selectedRecord.id,
+            date: selectedRecord.date,
+            proximityData: selectedRecord.proximityData,
+            lightData: selectedRecord.lightData,
+          };
+          localStorage.setItem('shareData', JSON.stringify(shareData));
+          router.push('/share');
+        }else {
+          alert('Please fill in all fields before sharing.');
         }
       };
 
@@ -77,8 +86,8 @@ export default function RecordPage() {
                         <div className="space-y-4">
                             <div className="grid items-center">
                                 {savedRecords.map((record, index) => (
-                                    <div className="flex mb-10" key={index} onClick={() => handleDoubleClick(record)}>
-                                        <label className="ml-3 text-sm font-medium text-gray-700">TAG/SN/ID: {record.id}</label>
+                                    <div className="grid grid-cols-2  mb-10" key={index}>
+                                        <label className="ml-3 text-sm font-medium text-gray-700" onClick={() => handleDoubleClick(record)}>TAG/SN/ID: {record.id}</label>
                                         <input type="checkbox" checked={selectedRecords.has(index)} onChange={() => handleCheckboxChange(index)} className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
                                     </div>
                                 ))}
@@ -108,10 +117,7 @@ export default function RecordPage() {
                           )}
                          
                           
-                          <div className="flex align-items-center mt-5">
-                            <button className="rounded-full border border-green-500 bg-green-500 text-white flex justify-center items-center mb-10 text-sm gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleShare}>Share via WhatsApp</button>
-                            <button className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-10 text-sm gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleShareEmail}>Share via Email</button>
-                          </div>
+                          
                           
                         
                     </div>
@@ -119,9 +125,20 @@ export default function RecordPage() {
                 </div>
             </div>
             <div className="ml-2 mx-2 grid"> 
-                <button className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-5 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" onClick={handleDeleteSelected} disabled={selectedRecords.size === 0}>
-                    DELETE SELECTED
-                </button>
+                  {!selectedRecord ?  (
+                    <div className="grid grid-cols-2 gap-2">
+                      <button className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleDeleteSelected} disabled={selectedRecords.size === 0}>
+                           DELETE 
+                      </button>
+                      <button className="rounded-full border border-blue-700 bg-blue-700 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleShareSelected}>SHARE</button>
+                    </div>
+                  ) : (
+                    <div className="grid grid-cols-2 gap-2">
+                            <button className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2"  onClick={closeDetails}>OK</button>
+                            <button className="rounded-full border border-blue-700 bg-blue-700 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleShareClick}>SHARE</button>
+                    </div>
+                  )}
+                
                 <BackButton/>
             </div>
             <style jsx>{`

@@ -10,6 +10,8 @@ export default function Matrix(MatrixProps: MatrixProps) {
         text = parseInt(text);
         if(text >= 24 && text <= 50) {
             return { color : 'black' };
+        }else if(text == 0 || text == 2 || text == 20 || text == 22){
+            return { color : 'lightgray' };
         }else{
             return { color : 'red' };
         }
@@ -18,6 +20,8 @@ export default function Matrix(MatrixProps: MatrixProps) {
         text = parseInt(text);
         if(text >= 28 && text <= 59) {
             return { color : 'black' };
+        }else if(text == 1 || text == 21){
+            return { color : 'lightgray' };
         }else{
             return { color : 'red' };
         }
@@ -26,7 +30,9 @@ export default function Matrix(MatrixProps: MatrixProps) {
      const getLightStyle40 = (text: any) => {
         text = parseInt(text);
         if(text >= 40 && text <= 63) {
-            return { color : 'black' };
+            return { color : "black" };
+        }else if(text == 11){
+            return { color : 'lightgray' };
         }else{
             return { color : 'red' };
         }
@@ -35,6 +41,8 @@ export default function Matrix(MatrixProps: MatrixProps) {
         text = parseInt(text);
         if(text >= 27 && text <= 56) {
             return { color : 'black' };
+        }else if(text == 10 || text == 12){
+            return { color : 'lightgray' };
         }else{
             return { color : 'red' };
         }
