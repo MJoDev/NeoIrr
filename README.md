@@ -20,10 +20,9 @@ Abrir (https://localhost:3000) en el navegador para conseguir la pagina.
 En el código Arduino, se deben definir los servicios y características que el dispositivo BLE ofrece.
 Si se usa un BLE compatible se debe definir y encontrar los UUIDs de los servicios y características en la documentación del módulo o en el código del firmware que estás utilizando.
 
-El bluetooth esta configurado para aceptar solo dispositivos con el filtro de servicios disponibles "181A".
+El bluetooth esta configurado para aceptar solo dispositivos con el filtro de servicios disponibles "12345678-1234-5678-1234-56789abcdef0".
 
-El servicio de los sensores deberia llamarse 181A (Se puede cambiar en el codigo de config a preferencia)
-Mientras que la caracteristica de proximidad "2A19" y la caracteristica de luz "2A1C". Como se ve en el código de abajo:
+El servicio de los sensores deberia llamarse "12345678-1234-5678-1234-56789abcdef0" (Se puede cambiar en el codigo de config a preferencia) Mientras que la caracteristica de proximidad "12345678-1234-5678-1234-56789abcdef1" y la caracteristica de luz "12345678-1234-5678-1234-56789abcdef2". Como se ve en el código de abajo:
 
 ```bash
 #include <BLEPeripheral.h>
