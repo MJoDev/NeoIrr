@@ -10,6 +10,7 @@ export default function RecordPage() {
     const [selectedRecords, setSelectedRecords] = useState<Set<number>>(new Set());
     const [selectedRecord, setSelectedRecord] = useState<any | null>(null);
     const router = useRouter();
+    const [ eliminate, setEliminate ] = useState(false);
 
     useEffect(() => {
         const records = localStorage.getItem('savedRecords');
@@ -35,6 +36,7 @@ export default function RecordPage() {
         setSavedRecords(updatedRecords);
         localStorage.setItem('savedRecords', JSON.stringify(updatedRecords));
         setSelectedRecords(new Set());
+        setEliminate(false);
       };
 
       const handleShareSelected = () => {
@@ -71,6 +73,14 @@ export default function RecordPage() {
 
       const isMatrixMode = (lightData: any): boolean => {
         return Array.isArray(lightData) && lightData.length >= 3;
+      };
+
+      const setElimnateTrue = () => {
+        setEliminate(true);
+      }
+
+      const setElimniateFalse = () => {
+        setEliminate(false);
       };
     
 
@@ -122,20 +132,34 @@ export default function RecordPage() {
                         
                     </div>
                   )}
+                  {eliminate && (
+                      <div className="popup-overlay">
+                        <div className="popup-content">
+                          <p className="text-2xl font-bold">Are you sure you want to delete the selected records?</p>
+                          <div className="grid grid-cols-2 gap-2 mt-10">
+                          <button className="rounded-full border border-gray-500 bg-gray-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" onClick={setElimniateFalse}>No</button>
+                               <button className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" onClick={handleDeleteSelected}>Yes</button>
+                          </div>
+
+                          
+                        </div>
+                      </div>
+                    )}
+
                 </div>
             </div>
             <div className="ml-2 mx-2 grid"> 
                   {!selectedRecord ?  (
                     <div className="grid grid-cols-2 gap-2">
-                      <button className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleDeleteSelected} disabled={selectedRecords.size === 0}>
+                      <button className="rounded-full border border-red-500 bg-red-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-2" onClick={setElimnateTrue} disabled={selectedRecords.size === 0}>
                            DELETE 
                       </button>
-                      <button className="rounded-full border border-blue-700 bg-blue-700 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleShareSelected}>SHARE</button>
+                      <button className="rounded-full border border-blue-700 bg-blue-700 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-5" onClick={handleShareSelected}>SHARE</button>
                     </div>
                   ) : (
                     <div className="grid grid-cols-2 gap-2">
-                            <button className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2"  onClick={closeDetails}>OK</button>
-                            <button className="rounded-full border border-blue-700 bg-blue-700 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2" onClick={handleShareClick}>SHARE</button>
+                            <button className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-2"  onClick={closeDetails}>OK</button>
+                            <button className="rounded-full border border-blue-700 bg-blue-700 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-5" onClick={handleShareClick}>SHARE</button>
                     </div>
                   )}
                 
@@ -151,6 +175,24 @@ export default function RecordPage() {
                 color: white;
                 border-radius: 5px;
               }
+              .popup-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+              .popup-content {
+                background: white;
+                padding: 20px;
+                border-radius: 5px;
+                text-align: center;
+              }
+
             `}</style>
         </div>
         
