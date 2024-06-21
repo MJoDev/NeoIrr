@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef } from "react";
 import BackButton from "../components/BackButton/BackButton";
 import Matrix from "../components/Matrix/Matrix";
-import RecordButton from "../components/RecordButton/RecordButton";
 import { useBluetooth } from "../utils/BluetoothContext";
 import { useRouter } from 'next/navigation';
 import { read } from "fs";
@@ -67,8 +66,11 @@ export default function MatrixPage() {
 
     const getProximityStyle = () => {
         const proximity = proximityData[0];
-        return proximity < 10 || proximity > 40 || proximity === undefined ? { color: 'red' } : { color: 'black' };
-    };
+        if(proximityData[0] == undefined){
+          return { color: 'lightgray' };
+        }
+        return proximity < 10 || proximity > 40 ? { color: 'red' } : { color: 'black' };
+       };
 
     const handleReadAndSaveClick = async () => {
         
