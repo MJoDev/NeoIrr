@@ -107,7 +107,7 @@ export default function GeneralPage() {
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                         <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData[0] || '0'}`}</div>
                     </div>
-                    <div className="text-md text-black text-center mt-5">REF: 10-40 CM</div>
+                    <div className="text-md text-black text-center mt-5">REF: 10-40 [cm]</div>
                 </div>
                 <div className="text-xl text-center mt-6 mb-4">
                     Press the Red Button in the device

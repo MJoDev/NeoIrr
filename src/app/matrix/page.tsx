@@ -102,7 +102,7 @@ export default function MatrixPage() {
                             <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                                 <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData[0] || '0'}`}</div>
                             </div>
-                            <div className="text-md text-center text-black mt-5">REF: 10-40 CM</div>
+                            <div className="text-md text-center text-black mt-5">REF: 10-40 [cm]</div>
                         </div>
                     </div>
                 ) : (
