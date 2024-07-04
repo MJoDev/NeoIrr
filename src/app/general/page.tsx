@@ -28,7 +28,7 @@ export default function GeneralPage() {
               const value = event.target.value.getUint16(0, true);
               setProximityData((prevData) => {
                 const newData = [...prevData, value];
-                localStorage.setItem('proximityData', JSON.stringify(newData));
+                proximityData.push(value);
                 return newData;
               });
             });
@@ -37,7 +37,7 @@ export default function GeneralPage() {
               const value = event.target.value.getUint16(0, true);
               setLightData((prevData) => {
                 const newData = [...prevData, value];
-                localStorage.setItem('lightData', JSON.stringify(newData));
+                lightData.push(value);
                 return newData;
               });
             });
@@ -98,7 +98,7 @@ export default function GeneralPage() {
                 <div className="bg-black text-white text-4xl text-center font-bold mb-10 mt-10">
                     GENERAL
                 </div> 
-                { !server ? <div>
+                { server ? <div>
                     <div className="text-xl text-center mt-6 mb-4">
                     Press the Yellow Button in the device
                 </div>

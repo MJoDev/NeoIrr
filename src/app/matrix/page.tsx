@@ -92,7 +92,7 @@ export default function MatrixPage() {
                 <div className="bg-black text-white text-4xl text-center font-bold mb-10 mt-10">
                     MATRIX
                 </div> 
-                {showSection === 'section1' ? (
+                {server ?  <div> {showSection === 'section1' ? (
                     <div>
                         <div className="text-xl text-center mt-6 mb-4">
                             Press the Yellow Button in the device
@@ -113,12 +113,14 @@ export default function MatrixPage() {
                         <button onClick={readData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                         <Matrix text={lightData}/>
                     </div>
-                )}
-                
-
+                )}</div> : <div>
+                <div className="text-xl text-center mt-6 mb-4">
+                    Please Connect a Bluetooth Device in Config.
+                </div>
+                </div>}
                 
             </div>
-            <div className="ml-2 mx-2 grid grid-cols-2"> 
+            {server ? <div className="ml-2 mx-2 grid grid-cols-2"> 
                 {!isNextClicked ? (
                     <button onClick={toggleSection} className="rounded-full border border-green-500 bg-green-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5">NEXT</button>
                 ) : (
@@ -127,7 +129,9 @@ export default function MatrixPage() {
                     </button>
                 )}
                 <BackButton/>
-            </div>
+            </div> :  <div className="ml-2 mx-2 grid"> 
+                <BackButton/>
+              </div> }
         </div>
     )
 }
