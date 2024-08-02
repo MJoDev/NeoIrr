@@ -28,9 +28,9 @@ const SavePage = () => {
         id,
         date,
       };
-      const existingRecords = JSON.parse(localStorage.getItem('records') || '[]');
+      const existingRecords = JSON.parse(localStorage.getItem('savedRecords') || '[]');
       existingRecords.push(newRecord);
-      localStorage.setItem('records', JSON.stringify(existingRecords));
+      localStorage.setItem('savedRecords', JSON.stringify(existingRecords));
       localStorage.removeItem('currentData');
       alert('Data saved successfully!');
       router.push('/record');
@@ -46,7 +46,7 @@ const SavePage = () => {
       localStorage.setItem('savedRecords', JSON.stringify(savedRecords));
       alert('Data saved successfully!');
       localStorage.removeItem('matrixData');
-      router.push('/'); // Redirect to home or records page after saving
+      router.push('/record'); // Redirect to home or records page after saving
     } else {
       alert('Please fill in all fields before saving.');
     }
