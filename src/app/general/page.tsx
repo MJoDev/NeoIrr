@@ -10,54 +10,40 @@ export default function GeneralPage() {
     const [proximityData, setProximityData] = useState(0);
     const [lightData, setLightData] = useState(0)
     const router = useRouter();
-    
-    
-
-    useEffect(() => {
-      const receiveData = async () => {
-        if (server) {
-          try {
-            const service = await server.getPrimaryService('12345678-1234-5678-1234-56789abcdef0'); // UUID de 128 bits del servicio de sensores
-            const proximityCharacteristic = await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef1'); // UUID de la característica de proximidad
-            const lightCharacteristic = await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef2'); // UUID de la característica de luz
-  
-            proximityCharacteristic.startNotifications();
-            lightCharacteristic.startNotifications();
-  
-            proximityCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
-              console.log(event.target.value);
-              console.log("DATA QUE RECIBE DESCRIFADA EN UNIT8", event.target.value.getUint8(0, true));
-              const value = event.target.value.getUint8(0, true);
-              setProximityData(value);
-              console.log(proximityData);
-            });
-  
-            lightCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
-              console.log(event.target.value);
-              const value = event.target.value.getUint16(0, true);
-              setLightData(value);
-              console.log(lightCharacteristic); 
-            });
-          } catch (error) {
-            console.error('Error receiving data from the device:', error);
-          }
-        }
-      };
-  
-      receiveData();
-    }, [server]);
 
     const handleButtonClick = async (type: 'P' | 'L') => {
       if (server) {
         try {
           const service = await server.getPrimaryService('12345678-1234-5678-1234-56789abcdef0');
-          const characteristic = type === 'P' ? await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef1') : await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef2');
-          await characteristic.writeValue(new TextEncoder().encode(type));
+          const characteristic = type === 'P'
+            ? await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef1')
+            : await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef2');
+    
+          await characteristic.startNotifications();
+    
+          const handleValueChange = (event: any) => {
+            const value = event.target.value.getUint8(0, true);
+            if (type === 'P') {
+              setProximityData(parseFloat(value));
+              console.log(proximityData);
+            } else {
+              setLightData(parseFloat(value));
+              console.log(lightData);
+            }
+          };
+    
+          characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
+          await new Promise((resolve) => setTimeout(resolve, 10000));
+          await characteristic.stopNotifications();
+          characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
+    
+          console.log('Notificaciones detenidas y valor congelado.');
         } catch (error) {
-          console.error('Error sending command to the device:', error);
+          console.error('Error enviando comando al dispositivo:', error);
         }
       }
     };
+    
 
     const handleSaveClick = () => {
       if (proximityData > 0 && lightData > 0) {
@@ -112,7 +98,7 @@ export default function GeneralPage() {
                 <button onClick={() => handleButtonClick('L')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                 <div className="bg-white borde rounded-md p-8 shadow-md w-80 mx-auto mb-5">
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                        <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()}>{`${lightData || '0'}`}</div>
+                        <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()} >{`${lightData || '0'}`}</div>
                     </div>
                     <div className="text-md text-black text-center mt-5">REF: 40 - 63 [uW/cm2/nm]</div>
                 </div>
