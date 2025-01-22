@@ -50,7 +50,6 @@ export default function ConfigPage() {
                 <button onClick={connectToDevice} className="check flex">CONNECT <BluetoothIcon className="w-6 h-6"/></button>
                 
                 <div className="mt-[40vh]">
-                  <StatusOK></StatusOK>
                   {isDeviceConnected && <StatusOK></StatusOK>} 
                   {error && <StatusFailed></StatusFailed>}
                 </div>
