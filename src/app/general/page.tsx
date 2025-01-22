@@ -25,6 +25,7 @@ export default function GeneralPage() {
             lightCharacteristic.startNotifications();
   
             proximityCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
+              console.log(event.target.value);
               const value = event.target.value.getUint16(0, true);
               setProximityData((prevData) => {
                 const newData = [...prevData, value];
@@ -35,6 +36,7 @@ export default function GeneralPage() {
             });
   
             lightCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
+              console.log(event.target.value);
               const value = event.target.value.getUint16(0, true);
               setLightData((prevData) => {
                 const newData = [...prevData, value];
