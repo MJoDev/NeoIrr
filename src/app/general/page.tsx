@@ -6,41 +6,40 @@ import { useRouter } from 'next/navigation';
 
 export default function GeneralPage() {
 
-    const { server } = useBluetooth();
+    const { server,
+      proximityCharacteristic,
+      lightCharacteristic,
+     } = useBluetooth();
     const [proximityData, setProximityData] = useState(0);
     const [lightData, setLightData] = useState(0)
     const router = useRouter();
 
     const handleButtonClick = async (type: 'P' | 'L') => {
-      if (server) {
-        try {
-          const service = await server.getPrimaryService('12345678-1234-5678-1234-56789abcdef0');
-          const characteristic = type === 'P'
-            ? await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef1')
-            : await service.getCharacteristic('12345678-1234-5678-1234-56789abcdef2');
-    
-          await characteristic.startNotifications();
-    
-          const handleValueChange = (event: any) => {
-            const value = event.target.value.getUint8(0, true);
-            if (type === 'P') {
-              setProximityData(parseFloat(value));
-              console.log(proximityData);
-            } else {
-              setLightData(parseFloat(value));
-              console.log(lightData);
-            }
-          };
-    
-          characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
-          await new Promise((resolve) => setTimeout(resolve, 10000));
-          await characteristic.stopNotifications();
-          characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
-    
-          console.log('Notificaciones detenidas y valor congelado.');
-        } catch (error) {
-          console.error('Error enviando comando al dispositivo:', error);
-        }
+      const characteristic = type === 'P' ? proximityCharacteristic : lightCharacteristic;
+      if (!characteristic) {
+        console.error('La característica no está inicializada.');
+        return;
+      }
+  
+      try {
+        await characteristic.startNotifications();
+  
+        const handleValueChange = (event: any) => {
+          const value = event.target.value.getUint8(0, true);
+          console.log(type === 'P' ? 'Proximidad:' : 'Luz:', value);
+        };
+  
+        characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
+  
+        // Esperar 10 segundos
+        await new Promise((resolve) => setTimeout(resolve, 10000));
+  
+        await characteristic.stopNotifications();
+        characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
+  
+        console.log('Notificaciones detenidas y valor congelado.');
+      } catch (error) {
+        console.error('Error manejando la característica:', error);
       }
     };
     
@@ -61,7 +60,7 @@ export default function GeneralPage() {
 
      const getProximityStyle = () => {
       const proximity = proximityData;
-      if(proximityData == undefined){
+      if(proximityData == undefined || proximityData == 0){
         return { color: 'lightgray' };
       }
       return proximity < 10 || proximity > 40 ? { color: 'red' } : { color: 'black' };
@@ -69,7 +68,7 @@ export default function GeneralPage() {
 
      const getLightStyle = () => {
       const light = lightData;
-      if(lightData == undefined){
+      if(lightData == undefined ){
         return { color: 'lightgray' };
       }
       return light < 40 || light > 63 ? { color: 'red' } : { color: 'black' };
