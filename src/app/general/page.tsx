@@ -7,8 +7,8 @@ import { useRouter } from 'next/navigation';
 export default function GeneralPage() {
 
     const { server } = useBluetooth();
-    const [proximityData, setProximityData] = useState<number[]>([]);
-    const [lightData, setLightData] = useState<number[]>([]);
+    const [proximityData, setProximityData] = useState(0);
+    const [lightData, setLightData] = useState(0)
     const router = useRouter();
     
     
@@ -28,22 +28,14 @@ export default function GeneralPage() {
               console.log(event.target.value);
               console.log("DATA QUE RECIBE DESCRIFADA EN UNIT8", event.target.value.getUint8(0, true));
               const value = event.target.value.getUint8(0, true);
-              setProximityData((prevData) => {
-                const newData = [...prevData, value];
-                proximityData.push(value);
-                return newData;
-              });
+              setProximityData(value);
               console.log(proximityData);
             });
   
             lightCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
               console.log(event.target.value);
               const value = event.target.value.getUint16(0, true);
-              setLightData((prevData) => {
-                const newData = [...prevData, value];
-                lightData.push(value);
-                return newData;
-              });
+              setLightData(value);
               console.log(lightCharacteristic); 
             });
           } catch (error) {
@@ -68,7 +60,7 @@ export default function GeneralPage() {
     };
 
     const handleSaveClick = () => {
-      if (proximityData.length > 0 && lightData.length > 0) {
+      if (proximityData > 0 && lightData > 0) {
         const dataToSave = {
           proximityData,
           lightData,
@@ -82,16 +74,16 @@ export default function GeneralPage() {
     };
 
      const getProximityStyle = () => {
-      const proximity = proximityData[0];
-      if(proximityData[0] == undefined){
+      const proximity = proximityData;
+      if(proximityData == undefined){
         return { color: 'lightgray' };
       }
       return proximity < 10 || proximity > 40 ? { color: 'red' } : { color: 'black' };
      };
 
      const getLightStyle = () => {
-      const light = lightData[0];
-      if(lightData[0] == undefined){
+      const light = lightData;
+      if(lightData == undefined){
         return { color: 'lightgray' };
       }
       return light < 40 || light > 63 ? { color: 'red' } : { color: 'black' };
@@ -110,7 +102,7 @@ export default function GeneralPage() {
                 <button onClick={() => handleButtonClick('P')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                 <div className="bg-white borderrounded-md p-8 shadow-md w-80 mx-auto">
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                        <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData[0] || '0'}`}</div>
+                        <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData || '0'}`}</div>
                     </div>
                     <div className="text-md text-black text-center mt-5">REF: 10-40 [cm]</div>
                 </div>
@@ -120,7 +112,7 @@ export default function GeneralPage() {
                 <button onClick={() => handleButtonClick('L')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                 <div className="bg-white borde rounded-md p-8 shadow-md w-80 mx-auto mb-5">
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
-                        <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()}>{`${lightData[0] || '0'}`}</div>
+                        <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()}>{`${lightData || '0'}`}</div>
                     </div>
                     <div className="text-md text-black text-center mt-5">REF: 40 - 63 [uW/cm2/nm]</div>
                 </div>
