@@ -31,6 +31,7 @@ export default function GeneralPage() {
                 proximityData.push(value);
                 return newData;
               });
+              console.log(proximityData);
             });
   
             lightCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
@@ -40,6 +41,7 @@ export default function GeneralPage() {
                 lightData.push(value);
                 return newData;
               });
+              console.log(lightCharacteristic); 
             });
           } catch (error) {
             console.error('Error receiving data from the device:', error);
