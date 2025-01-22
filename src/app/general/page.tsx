@@ -26,7 +26,11 @@ export default function GeneralPage() {
   
         const handleValueChange = (event: any) => {
           const value = event.target.value.getUint8(0, true);
-          console.log(type === 'P' ? 'Proximidad:' : 'Luz:', value);
+          if(type === 'P'){
+            setProximityData(parseFloat(value));
+          }else{
+            setLightData(parseFloat(value));
+          }
         };
   
         characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
