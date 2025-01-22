@@ -26,7 +26,8 @@ export default function GeneralPage() {
   
             proximityCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
               console.log(event.target.value);
-              const value = event.target.value.getUint16(0, true);
+              console.log(event.target.value.getUint8(0, true));
+              const value = event.target.value.getUint8(0, true);
               setProximityData((prevData) => {
                 const newData = [...prevData, value];
                 proximityData.push(value);
