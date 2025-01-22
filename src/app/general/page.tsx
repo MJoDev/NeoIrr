@@ -26,7 +26,7 @@ export default function GeneralPage() {
   
             proximityCharacteristic.addEventListener('characteristicvaluechanged', (event: any) => {
               console.log(event.target.value);
-              console.log(event.target.value.getUint8(0, true));
+              console.log("DATA QUE RECIBE DESCRIFADA EN UNIT8", event.target.value.getUint8(0, true));
               const value = event.target.value.getUint8(0, true);
               setProximityData((prevData) => {
                 const newData = [...prevData, value];
