@@ -115,7 +115,7 @@ const SavePage = () => {
                    </div>
                 )}
                 
-                {data || matrixData && (
+                {(data || matrixData) && (
                   <div className='grid mt-10'>
                       <div className='mt-5'>
                           <label className="block mb-2 text-md font-medium text-gray-900 ">DD/MM/YYY</label>
