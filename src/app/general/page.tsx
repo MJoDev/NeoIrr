@@ -13,8 +13,9 @@ export default function GeneralPage() {
     const [proximityData, setProximityData] = useState(0);
     const [lightData, setLightData] = useState(0)
     const router = useRouter();
+    const [timers, setTimers] = useState({ button1: 0, button2: 0 });
 
-    const handleButtonClick = async (type: 'P' | 'L') => {
+    const handleButtonClick = async (type: 'P' | 'L', button: 'button1' | 'button2') => {
       const characteristic = type === 'P' ? proximityCharacteristic : lightCharacteristic;
       if (!characteristic) {
         console.error('La característica no está inicializada.');
@@ -22,6 +23,7 @@ export default function GeneralPage() {
       }
   
       try {
+        setTimers((prev) => ({ ...prev, [button]: 10 }));
         await characteristic.startNotifications();
   
         const handleValueChange = (event: any) => {
@@ -46,7 +48,20 @@ export default function GeneralPage() {
         console.error('Error manejando la característica:', error);
       }
     };
+
+    useEffect(() => {
+      const activeTimers = Object.entries(timers).filter(([_, time]) => time > 0);
+  
+      const timer = setTimeout(() => {
+        activeTimers.forEach(([button, time]) => {
+          setTimers((prev) => ({ ...prev, [button]: time - 1 }));
+        });
+      }, 1000);
+  
+      return () => clearTimeout(timer); // Limpia el temporizador en cada render
+    }, [timers]);
     
+
 
     const handleSaveClick = () => {
       if (proximityData > 0 && lightData > 0) {
@@ -88,8 +103,11 @@ export default function GeneralPage() {
                     <div className="text-xl text-center mt-6 mb-4">
                     Press the Yellow Button in the device
                 </div>
-                <button onClick={() => handleButtonClick('P')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
+                <button onClick={() => handleButtonClick('P', 'button1')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button1 > 0}>TEST</button>
                 <div className="bg-white borderrounded-md p-8 shadow-md w-80 mx-auto">
+                    <p className="text-xl mt-2">
+                      {timers.button1 > 0 ? `${timers.button1} Seconds Left` : "Value Saved"}
+                   </p>
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                         <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData || '0'}`}</div>
                     </div>
@@ -98,8 +116,11 @@ export default function GeneralPage() {
                 <div className="text-xl text-center mt-6 mb-4">
                     Press the Red Button in the device
                 </div>
-                <button onClick={() => handleButtonClick('L')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
+                <button onClick={() => handleButtonClick('L', 'button2')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button2 > 0}>TEST</button>
                 <div className="bg-white borde rounded-md p-8 shadow-md w-80 mx-auto mb-5">
+                   <p className="text-xl mt-2">
+                      {timers.button2 > 0 ? `${timers.button2} segundos` : "Value Saved"}
+                   </p>
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                         <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()} >{`${lightData || '0'}`}</div>
                     </div>

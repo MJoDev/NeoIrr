@@ -26,6 +26,7 @@ export default function ConfigPage() {
             setDevice(device);
             setServer(server);
             setIsDeviceConnected(true);
+            setError(false);
           }else {
             console.error('Failed to connect to the device');
             setError(true);
