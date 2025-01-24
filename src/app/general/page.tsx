@@ -27,11 +27,13 @@ export default function GeneralPage() {
         await characteristic.startNotifications();
   
         const handleValueChange = (event: any) => {
-          const value = event.target.value.getUint8(0, true);
+          const value = event.target.value;
+          const floatValue = value.getFloat32(0, true);
+
           if(type === 'P'){
-            setProximityData(parseFloat(value));
+            setProximityData(floatValue);
           }else{
-            setLightData(parseFloat(value));
+            setLightData(parseFloat(value.getUint8(0, true)));
           }
         };
   
@@ -79,10 +81,10 @@ export default function GeneralPage() {
 
      const getProximityStyle = () => {
       const proximity = proximityData;
-      if(proximityData == undefined || proximityData == 0){
+      if(proximityData === undefined || proximityData === 0){
         return { color: 'lightgray' };
       }
-      return proximity < 10 || proximity > 40 ? { color: 'red' } : { color: 'black' };
+      return proximity < 30 || proximity > 50 ? { color: 'red' } : { color: 'black' };
      };
 
      const getLightStyle = () => {
@@ -105,20 +107,20 @@ export default function GeneralPage() {
                 </div>
                 <button onClick={() => handleButtonClick('P', 'button1')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button1 > 0}>TEST</button>
                 <div className="bg-white borderrounded-md p-8 shadow-md w-80 mx-auto">
-                    <p className="text-xl mt-2">
+                    <p className="text-xl mt-2 text-center">
                       {timers.button1 > 0 ? `${timers.button1} Seconds Left` : "Value Saved"}
                    </p>
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                         <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData || '0'}`}</div>
                     </div>
-                    <div className="text-md text-black text-center mt-5">REF: 10-40 [cm]</div>
+                    <div className="text-md text-black text-center mt-5">REF: 30-50 [cm]</div>
                 </div>
                 <div className="text-xl text-center mt-6 mb-4">
                     Press the Red Button in the device
                 </div>
                 <button onClick={() => handleButtonClick('L', 'button2')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button2 > 0}>TEST</button>
                 <div className="bg-white borde rounded-md p-8 shadow-md w-80 mx-auto mb-5">
-                   <p className="text-xl mt-2">
+                   <p className="text-xl mt-2 text-center">
                       {timers.button2 > 0 ? `${timers.button2} segundos` : "Value Saved"}
                    </p>
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
