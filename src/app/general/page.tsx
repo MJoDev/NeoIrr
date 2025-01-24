@@ -31,9 +31,9 @@ export default function GeneralPage() {
           const floatValue = value.getFloat32(0, true);
 
           if(type === 'P'){
-            setProximityData(floatValue);
+            setProximityData(floatValue.toFixed(2));
           }else{
-            setLightData(parseFloat(value.getUint8(0, true)));
+            setLightData(floatValue.toFixed(2));
           }
         };
   
@@ -89,7 +89,7 @@ export default function GeneralPage() {
 
      const getLightStyle = () => {
       const light = lightData;
-      if(lightData == undefined ){
+      if(lightData === undefined || lightData === 0){
         return { color: 'lightgray' };
       }
       return light < 40 || light > 63 ? { color: 'red' } : { color: 'black' };
@@ -108,7 +108,7 @@ export default function GeneralPage() {
                 <button onClick={() => handleButtonClick('P', 'button1')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button1 > 0}>TEST</button>
                 <div className="bg-white borderrounded-md p-8 shadow-md w-80 mx-auto">
                     <p className="text-xl mt-2 text-center">
-                      {timers.button1 > 0 ? `${timers.button1} Seconds Left` : "Value Saved"}
+                      {timers.button1 > 0 ? `${timers.button1} Seconds Left` : ""}
                    </p>
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                         <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData || '0'}`}</div>
@@ -121,7 +121,7 @@ export default function GeneralPage() {
                 <button onClick={() => handleButtonClick('L', 'button2')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button2 > 0}>TEST</button>
                 <div className="bg-white borde rounded-md p-8 shadow-md w-80 mx-auto mb-5">
                    <p className="text-xl mt-2 text-center">
-                      {timers.button2 > 0 ? `${timers.button2} segundos` : "Value Saved"}
+                      {timers.button2 > 0 ? `${timers.button2} segundos` : ""}
                    </p>
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                         <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()} >{`${lightData || '0'}`}</div>
