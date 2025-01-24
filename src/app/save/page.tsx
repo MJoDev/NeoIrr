@@ -12,14 +12,25 @@ const SavePage = () => {
 
   useEffect(() => {
     const storedData = localStorage.getItem('currentData');
-    const data = localStorage.getItem('matrixData');
-    if (data) {
-      setMatrixData(JSON.parse(data));
-    }
+    const matrixDataRaw = localStorage.getItem('matrixData');
+    
     if (storedData) {
-      setData(JSON.parse(storedData));
+      try {
+        setData(JSON.parse(storedData)); // Assuming setData expects an object
+      } catch (error) {
+        console.error('Error parsing storedData:', error);
+      }
+    }
+    
+    if (matrixDataRaw) {
+      try {
+        setMatrixData(JSON.parse(matrixDataRaw)); // Assuming setMatrixData expects an array
+      } catch (error) {
+        console.error('Error parsing matrixData:', error);
+      }
     }
   }, []);
+  
 
   const saveData = () => {
     if (data && date && id) {

@@ -121,7 +121,7 @@ export default function GeneralPage() {
                 <button onClick={() => handleButtonClick('L', 'button2')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button2 > 0}>TEST</button>
                 <div className="bg-white borde rounded-md p-8 shadow-md w-80 mx-auto mb-5">
                    <p className="text-xl mt-2 text-center">
-                      {timers.button2 > 0 ? `${timers.button2} segundos` : ""}
+                      {timers.button2 > 0 ? `${timers.button2} Seconds left` : ""}
                    </p>
                     <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                         <div className="text-6xl font-bold text-center text-gray-700" style={getLightStyle()} >{`${lightData || '0'}`}</div>
