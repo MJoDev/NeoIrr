@@ -22,40 +22,8 @@ export default function MatrixPage() {
     const router = useRouter();
     const [isReading, setIsReading] = useState(true);
     const proximityIntervalRef = useRef<NodeJS.Timeout | null>(null);
-    const [timerProximity, setTimerProximity] = useState(0);
-    const [timers, setTimers] = useState({
-        value1: 0,
-        value2: 0,
-        value3: 0,
-        value4: 0,
-        value5: 0,
-        value6: 0,
-        value7: 0,
-        value8: 0,
-        value9: 0,
-    });
-    
-    useEffect(() => {
-        const activeTimers = Object.entries(timers).filter(([_, time]) => time > 0);
-    
-        const timer = setTimeout(() => {
-          activeTimers.forEach(([value, time]) => {
-            setTimers((prev) => ({ ...prev, [value]: time - 1 }));
-          });
-        }, 1000);
-    
-        return () => clearTimeout(timer); // Limpia el temporizador en cada render
-      }, [timers]);
+    const [timers, setTimers] = useState({ button1: 0, button2: 0});
 
-      useEffect(() => {
-        if (timerProximity > 0) {
-          const timer = setTimeout(() => {
-            setTimerProximity((prev) => prev - 1);
-          }, 1000);
-    
-          return () => clearTimeout(timer); // Limpia el temporizador en cada render
-        }
-      }, [timerProximity]);
     
     // Función para cambiar la sección
     const toggleSection = () => {
@@ -71,7 +39,7 @@ export default function MatrixPage() {
         }
 
         try {
-            setTimerProximity(10);
+            setTimers((prev) => ({ ...prev, [0]: 10 }));
             await characteristic.startNotifications();
     
             const handleValueChange = (event: any) => {
@@ -107,7 +75,7 @@ export default function MatrixPage() {
     
             // Bucle para ejecutar 9 veces
             for (let i = 0; i < 9; i++) {
-                setTimers((prev) => ({ ...prev, [i]: 10 })); // Actualiza el temporizador para cada iteración
+                setTimers((prev) => ({ ...prev, [1]: 10 })); // Actualiza el temporizador para cada iteración
                 
                 await characteristic.startNotifications();
     
@@ -142,48 +110,18 @@ export default function MatrixPage() {
         }
     };
         
-    const getLightStyle24 = (text: any) => {
-        text = parseInt(text);
-        if(text >= 24 && text <= 50) {
-            return { color : 'black' };
-        }else if(text == 0 || text == 2 || text == 20 || text == 22){
-            return { color : 'lightgray' };
-        }else{
-            return { color : 'red' };
-        }
-     };
-     const getLightStyle38 = (text: any) => {
-        text = parseInt(text);
-        if(text >= 28 && text <= 59) {
-            return { color : 'black' };
-        }else if(text == 1 || text == 21){
-            return { color : 'lightgray' };
-        }else{
-            return { color : 'red' };
-        }
-     };
-
-     const getLightStyle40 = (text: any) => {
-        text = parseInt(text);
-        if(text >= 40 && text <= 63) {
-            return { color : "black" };
-        }else if(text == 11){
-            return { color : 'lightgray' };
-        }else{
-            return { color : 'red' };
-        }
-     }
-     const getLightStyle27 = (text: any) => {
-        text = parseInt(text);
-        if(text >= 27 && text <= 56) {
-            return { color : 'black' };
-        }else if(text == 10 || text == 12){
-            return { color : 'lightgray' };
-        }else{
-            return { color : 'red' };
-        }
-     }
-                
+    useEffect(() => {
+        const activeTimers = Object.entries(timers).filter(([_, time]) => time > 0);
+    
+        const timer = setTimeout(() => {
+          activeTimers.forEach(([button, time]) => {
+            setTimers((prev) => ({ ...prev, [button]: time - 1 }));
+          });
+        }, 1000);
+    
+        return () => clearTimeout(timer); // Limpia el temporizador en cada render
+      }, [timers]);
+      
 
     const getProximityStyle = () => {
         const proximity = proximityData;
@@ -221,7 +159,7 @@ export default function MatrixPage() {
                         <button onClick={readProximityData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                         <div className="bg-white border rounded-md p-8 shadow-md w-80 mx-auto">
                             <p className="text-xl mt-2 text-center">
-                                {timerProximity > 0 ? `${timerProximity} Seconds Left` : ""}
+                                {timers.button1 > 0 ? `${timers.button1} Seconds Left` : ""}
                             </p>
                             <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                                 <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData || '0'}`}</div>
@@ -235,112 +173,10 @@ export default function MatrixPage() {
                             Press the Red Button in the device
                         </div>
                         <button onClick={readData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
-                        <div className="flex flex-col items-center justify-center space-y-4 mt-10 mb-10">
-                        <div className="grid grid-cols-3 gap-4 ">
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value1 > 0 ? `${timers.value1} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle24(lightData[0])}>{lightData[0]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:24 - 50 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value2 > 0 ? `${timers.value2} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle38(lightData[1])}>{lightData[1]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:38 - 59 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value3 > 0 ? `${timers.value3} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle24(lightData[2])}>{lightData[2]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:24 - 50 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value4 > 0 ? `${timers.value4} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle27(lightData[3])}>{lightData[3]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:27 - 56 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value5 > 0 ? `${timers.value5} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle40(lightData[4])}>{lightData[4]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:40 - 63 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value6 > 0 ? `${timers.value6} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle27(lightData[5])}>{lightData[5]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:27 - 56 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value7 > 0 ? `${timers.value7} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle24(lightData[6])}>{lightData[6]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:24 - 50 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value8 > 0 ? `${timers.value8} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle38(lightData[7])}>{lightData[7]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2" >REF:38 - 59 [uW/cm2/nm]</div>
-                            </div>
-                            <div>
-                                <div className="flex items-center justify-center h-21 w-21 py-4 bg-gray-100 border-2 border-gray-300 rounded-lg">
-                                    <p className="text-xl mt-2 text-center">
-                                            {timers.value9 > 0 ? `${timers.value9} Seconds Left` : ""}
-                                    </p>
-                                    <div className="text-center">
-                                        <div className="text-3xl font-bold text-gray-700" style={getLightStyle24(lightData[8])}>{lightData[8]}</div>
-                                    </div>
-                                </div>
-                                <div className="text-md text-black text-center mt-2">REF:24 - 50 [uW/cm2/nm]</div>
-                            </div>
-                            
-                            
-                        </div>
-                    </div>
+                        <p className="text-xl mt-2 text-center">
+                                {timers.button2 > 0 ? `${timers.button2} Seconds Left` : ""}
+                        </p>
+                        <Matrix text={lightData}/>
                     </div>
                 )}</div> : <div>
                 <div className="text-xl text-center mt-6 mb-4">
