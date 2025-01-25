@@ -104,6 +104,7 @@ export default function GeneralPage() {
                 { server ? <div>
                     <div className="text-xl text-center mt-6 mb-4">
                     1) Press Test.
+                    
                     2) Press the Yellow Button in the Device.
                 </div>
                 <button onClick={() => handleButtonClick('P', 'button1')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button1 > 0}>TEST</button>
@@ -118,6 +119,7 @@ export default function GeneralPage() {
                 </div>
                 <div className="text-xl text-center mt-6 mb-4">
                     1) Press Test.
+
                     2) Press the Red Button in the Device.
                 </div>
                 <button onClick={() => handleButtonClick('L', 'button2')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button2 > 0}>TEST</button>
