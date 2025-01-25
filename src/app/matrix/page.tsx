@@ -71,7 +71,7 @@ export default function MatrixPage() {
         }
 
         try {
-            setTimers((prev) => ({ ...prev, [0]: 10 }));
+            setTimerProximity(10);
             await characteristic.startNotifications();
     
             const handleValueChange = (event: any) => {
