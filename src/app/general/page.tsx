@@ -107,7 +107,7 @@ export default function GeneralPage() {
                       <strong>1)</strong> Press Test.
                     </p>
                     <p>
-                      <strong>2)</strong> Press the <span className="text-yellow-500">Yellow</span> Button in the Device.
+                      <strong>2)</strong> Press the  <strong><span className="text-yellow-500">Yellow</span> Button</strong> in the Device.
                     </p>
                 </div>
                 <button onClick={() => handleButtonClick('P', 'button1')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button1 > 0}>TEST</button>
@@ -125,7 +125,7 @@ export default function GeneralPage() {
                   <strong>1)</strong> Press Test.
                 </p>
                 <p>
-                  <strong>2)</strong> Press the <span className="text-red-500">Red</span> Button in the Device.
+                  <strong>2)</strong> Press the <strong><span className="text-red-500">Red</span> Button</strong> in the Device.
                 </p>
                 </div>
                 <button onClick={() => handleButtonClick('L', 'button2')} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5" disabled={timers.button2 > 0}>TEST</button>
