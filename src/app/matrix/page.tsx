@@ -154,7 +154,12 @@ export default function MatrixPage() {
                 {server ?  <div> {showSection === 'section1' ? (
                     <div>
                         <div className="text-xl text-center mt-6 mb-4">
-                            Press the Yellow Button in the device
+                        <p>
+                            <strong>1)</strong> Press Test.
+                        </p>
+                        <p>
+                            <strong>2)</strong> Press the  <strong><span className="text-yellow-500">Yellow</span> Button</strong> in the Device.
+                        </p>
                         </div>
                         <button onClick={readProximityData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                         <div className="bg-white border rounded-md p-8 shadow-md w-80 mx-auto">
@@ -170,7 +175,12 @@ export default function MatrixPage() {
                 ) : (
                     <div>
                         <div className="text-xl text-center mt-6 mb-4">
-                            Press the Red Button in the device
+                        <p>
+                            <strong>1)</strong> Press Test.
+                        </p>
+                        <p>
+                            <strong>2)</strong> Press the <strong><span className="text-red-500">Red</span> Button</strong> in the Device.
+                        </p>
                         </div>
                         <button onClick={readData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                         <p className="text-xl mt-2 text-center">
@@ -180,7 +190,7 @@ export default function MatrixPage() {
                     </div>
                 )}</div> : <div>
                 <div className="text-xl text-center mt-6 mb-4">
-                    Please Connect a Bluetooth Device in Config.
+                    Please Connect a <strong>Bluetooth</strong> Device in <strong>CONFIG</strong>.
                 </div>
                 </div>}
                 

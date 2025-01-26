@@ -46,7 +46,7 @@ export default function ConfigPage() {
                     CONFIG
                 </div> 
                 <div className="text-xl text-center mt-6">
-                    Press the Blue Button in the Device and then press the &quot;Connect&ldquo; Button below.
+                    Press the <strong><span className="text-blue-500">Blue</span> Button</strong> in the Device and then press the &quot;CONNECT&ldquo; <strong>Button</strong> below.
                 </div> 
                 <button onClick={connectToDevice} className="check flex">CONNECT <BluetoothIcon className="w-6 h-6"/></button>
                 
