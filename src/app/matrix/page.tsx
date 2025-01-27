@@ -87,17 +87,17 @@ export default function MatrixPage() {
                 };
     
                 characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
-    
+                setLightData((prev) => ({
+                    ...prev,
+                    [i]: updatedData[i],
+                }));
                 // Esperar 10 segundos
                 await new Promise((resolve) => setTimeout(resolve, 10000));
     
                 await characteristic.stopNotifications();
                 characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
                 console.log(`Notificaciones detenidas para la iteración ${i}`);
-                setLightData((prev) => ({
-                    ...prev,
-                    [i]: updatedData[i],
-                }));
+                
             }
     
             // Actualiza el estado con todos los datos recolectados
