@@ -202,9 +202,9 @@ export default function MatrixPage() {
             {server ? <div className="ml-2 mx-2 grid grid-cols-2"> 
                 <BackButton/>
                 {!isNextClicked ? (
-                    <button onClick={toggleSection} className="rounded-full border border-green-500 bg-green-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5">NEXT</button>
+                    <button onClick={toggleSection} className="rounded-full border border-green-500 bg-green-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" disabled={isReading}>NEXT</button>
                 ) : (
-                    <button onClick={handleReadAndSaveClick} className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5">
+                    <button onClick={handleReadAndSaveClick} className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5" disabled={isReading}>
                         SAVE
                     </button>
                 )}
