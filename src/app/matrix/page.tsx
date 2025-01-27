@@ -128,7 +128,7 @@ export default function MatrixPage() {
         if(proximity === undefined){
           return { color: 'lightgray' };
         }
-        return proximity < 10 || proximity > 40 ? { color: 'red' } : { color: 'black' };
+        return proximity < 30 || proximity > 50 ? { color: 'red' } : { color: 'black' };
        };
 
     const handleReadAndSaveClick = async () => {
@@ -169,7 +169,7 @@ export default function MatrixPage() {
                             <div className="bg-gray-100 border border-gray-400 rounded-md p-6">
                                 <div className="text-6xl font-bold text-center text-gray-700" style={getProximityStyle()}>{`${proximityData || '0'}`}</div>
                             </div>
-                            <div className="text-md text-center text-black mt-5">REF: 10-40 [cm]</div>
+                            <div className="text-md text-center text-black mt-5">REF: 30-50 [cm]</div>
                         </div>
                     </div>
                 ) : (
