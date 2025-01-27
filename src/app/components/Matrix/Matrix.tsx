@@ -62,17 +62,23 @@ export default function Matrix(props: MatrixProps) {
         }
       };
 
+      const borderSelected = (index: number, nowSelected: number | null): string => {
+        if(index === nowSelected){
+            return "border-gray-700";
+         }else{
+            return "border-gray-300";
+         }     
+    };
+
       return (
         <div className="flex flex-col items-center justify-center space-y-4 mt-10 mb-10">
           <div className="grid grid-cols-3 gap-4">
           {text.map((value, index) => {
                 const style = getLightStyleForIndex(index, value); // Asignamos el estilo según el índice
-                const isSelected = index === selectedPosition;
-                const borderColor = isSelected ? "border-blue-500 4px solid" : "border-transparent";
-
+            
                 return (
                         <LightCard
-                            borderSelected={{borderColor}} 
+                            borderSelected={borderSelected(index, selectedPosition)} 
                             key={index}
                             style={{ ...style }}
                             value={value}
