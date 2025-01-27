@@ -26,25 +26,60 @@ export default function Matrix(props: MatrixProps) {
     const getLightStyle27 = (text: number) => getLightStyle(text, [27, 56], [10, 12]);
 
     const lightData = [
-        { style: getLightStyle24(text[0]), value: text[0], reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { style: getLightStyle38(text[1]), value: text[1], reference: "REF:38 - 59 [uW/cm2/nm]" },
-        { style: getLightStyle24(text[2]), value: text[2], reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { style: getLightStyle27(text[3]), value: text[3], reference: "REF:27 - 56 [uW/cm2/nm]" },
-        { style: getLightStyle40(text[4]), value: text[4], reference: "REF:40 - 63 [uW/cm2/nm]" },
-        { style: getLightStyle27(text[5]), value: text[5], reference: "REF:27 - 56 [uW/cm2/nm]" },
-        { style: getLightStyle24(text[6]), value: text[6], reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { style: getLightStyle38(text[7]), value: text[7], reference: "REF:38 - 59 [uW/cm2/nm]" },
-        { style: getLightStyle24(text[8]), value: text[8], reference: "REF:24 - 50 [uW/cm2/nm]" }
+        { reference: "REF:24 - 50 [uW/cm2/nm]" },
+        { reference: "REF:38 - 59 [uW/cm2/nm]" },
+        { reference: "REF:24 - 50 [uW/cm2/nm]" },
+        { reference: "REF:27 - 56 [uW/cm2/nm]" },
+        { reference: "REF:40 - 63 [uW/cm2/nm]" },
+        { reference: "REF:27 - 56 [uW/cm2/nm]" },
+        { reference: "REF:24 - 50 [uW/cm2/nm]" },
+        { reference: "REF:38 - 59 [uW/cm2/nm]" },
+        { reference: "REF:24 - 50 [uW/cm2/nm]" }
       ];
     
       return (
         <div className="flex flex-col items-center justify-center space-y-4 mt-10 mb-10">
           <div className="grid grid-cols-3 gap-4">
-            {text.map((value, index) => {
-                const isSelected = index === selectedPosition;
-                const borderColor = isSelected ? "border-blue-500" : "border-transparent";
-                return <LightCard key={index} borderSelected={{border: `4px solid ${borderColor}`}} style={{ ...lightData[index].style }} value={value} reference={lightData[index].reference} onClick={() => onCardSelect} />
-            })}
+          {text.map((value, index) => {
+                    const style = (() => {
+                        switch (index) {
+                            case 0:
+                                return getLightStyle24(value);
+                            case 1:
+                                return getLightStyle38(value);
+                            case 2: 
+                                return getLightStyle24(value);
+                            case 3:
+                                return getLightStyle27(value);
+                            case 4:
+                                return getLightStyle40(value);
+                            case 5:
+                                return getLightStyle27(value);
+                            case 6:
+                                return getLightStyle24(value);
+                            case 7: 
+                                return getLightStyle38(value);
+                            case 8:
+                                return getLightStyle24(value);
+                            default:
+                                return {};
+                        }
+                    })();
+
+                    const isSelected = index === selectedPosition;
+                    const borderColor = isSelected ? "border-blue-500" : "border-transparent";
+
+                    return (
+                        <LightCard
+                            borderSelected={{border: `4px solid ${borderColor}`}} 
+                            key={index}
+                            style={{ ...style }}
+                            value={value}
+                            reference={lightData[index].reference}
+                            onClick={() => onCardSelect(index)}
+                        />
+                    );
+                })}
           </div>
         </div>
       );
