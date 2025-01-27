@@ -75,7 +75,7 @@ export default function MatrixPage() {
     
             // Bucle para ejecutar 9 veces
             for (let i = 0; i < 9; i++) {
-                setTimers((prev) => ({ ...prev, [1]: 10 })); // Actualiza el temporizador para cada iteración
+                setTimers((prev) => ({ ...prev, button2: 10 })); // Actualiza el temporizador para cada iteración
                 
                 await characteristic.startNotifications();
     
