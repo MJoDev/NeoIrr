@@ -77,7 +77,7 @@ export default function MatrixPage() {
             console.error('La característica no está inicializada.');
             return;
         }
-        if(selectedPosition === -1){
+        if(selectedPosition <= -1){
             alert("Select a field!")
             return
         }
