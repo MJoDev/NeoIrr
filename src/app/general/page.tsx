@@ -146,10 +146,10 @@ export default function GeneralPage() {
                 
             </div>
             <div className="ml-2 mx-2 grid grid-cols-2"> 
-              <button onClick={handleSaveClick} className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5">
-                   REC
-               </button>
                 <BackButton/>
+                <button onClick={handleSaveClick} className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5">
+                   SAVE
+               </button>
             </div>
         </div>
     )
