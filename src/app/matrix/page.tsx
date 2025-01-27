@@ -86,13 +86,14 @@ export default function MatrixPage() {
                     const floatValue = value.getFloat32(0, true);
                     console.log(`Valor recibido en la iteración ${i}: ${floatValue.toFixed(2)}`);
                     updatedData.push(floatValue.toFixed(2)); // Agrega el valor al array
+                    setLightData((prev) => ({
+                        ...prev,
+                        [i]: updatedData[i],
+                    }));
                 };
     
                 characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
-                setLightData((prev) => ({
-                    ...prev,
-                    [i]: updatedData[i],
-                }));
+                
                 // Esperar 10 segundos
                 await new Promise((resolve) => setTimeout(resolve, 10000));
     
