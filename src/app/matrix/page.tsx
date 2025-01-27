@@ -201,7 +201,7 @@ export default function MatrixPage() {
                     <button onClick={toggleSection} className="rounded-full border border-green-500 bg-green-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5">NEXT</button>
                 ) : (
                     <button onClick={handleReadAndSaveClick} className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5">
-                        REC
+                        SAVE
                     </button>
                 )}
             </div> :  <div className="ml-2 mx-2 grid"> 
