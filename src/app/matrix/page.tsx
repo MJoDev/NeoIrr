@@ -180,10 +180,10 @@ export default function MatrixPage() {
                     <div>
                         <div className="text-xl text-center mt-6 mb-4">
                         <p>
-                            <strong>1)</strong> Click a field
+                            <strong>1)</strong> Click a Field.
                         </p>
                         <p>
-                            <strong>2)</strong> Press Test
+                            <strong>2)</strong> Press Test.
                         </p>
                         <p>
                             <strong>3)</strong> Press the <strong><span className="text-red-500">Red</span> Button</strong> in the Device.
