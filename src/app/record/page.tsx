@@ -11,12 +11,10 @@ export default function RecordPage() {
     const [selectedRecord, setSelectedRecord] = useState<any | null>(null);
     const router = useRouter();
     const [ eliminate, setEliminate ] = useState(false);
-    const [ recordExist, setRecordsExist ] = useState(false);
 
     useEffect(() => {
         const records = localStorage.getItem('savedRecords');
         if (records) {
-          setRecordsExist(false)
           setSavedRecords(JSON.parse(records));
         }
       }, []);
