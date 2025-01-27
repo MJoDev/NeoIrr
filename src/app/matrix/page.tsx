@@ -78,6 +78,7 @@ export default function MatrixPage() {
         }
         if(!selectedPosition){
             alert("Select a field!")
+            return
         }
         try {
             setIsReading(true)
