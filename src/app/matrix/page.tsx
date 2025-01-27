@@ -125,7 +125,7 @@ export default function MatrixPage() {
 
     const getProximityStyle = () => {
         const proximity = proximityData;
-        if(proximity === undefined){
+        if(proximity === undefined || proximity === 0){
           return { color: 'lightgray' };
         }
         return proximity < 30 || proximity > 50 ? { color: 'red' } : { color: 'black' };
