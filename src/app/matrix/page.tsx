@@ -25,6 +25,12 @@ export default function MatrixPage() {
     const [timers, setTimers] = useState({ button1: 0, button2: 0});
 
     
+    useEffect(() => {
+        setLightData((prev) => ({
+            ...prev
+        }));
+    }, [lightData])
+
     // Función para cambiar la sección
     const toggleSection = () => {
         setShowSection(prevSection => (prevSection === 'section1' ? 'section2' : 'section1'));
