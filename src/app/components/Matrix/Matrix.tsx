@@ -26,7 +26,7 @@ export default function Matrix(props: MatrixProps) {
             <div className="grid grid-cols-3 gap-4 ">
                 <LightCard style={getLightStyle24(props.text[0])} value={props.text[0]} reference="REF:24 - 50 [uW/cm2/nm]"/>
                 <LightCard style={getLightStyle38(props.text[1])} value={props.text[1]} reference="REF:38 - 59 [uW/cm2/nm]"/>
-                <LightCard style={getLightStyle40(props.text[2])} value={props.text[2]} reference="REF:24 - 50 [uW/cm2/nm]"/>
+                <LightCard style={getLightStyle24(props.text[2])} value={props.text[2]} reference="REF:24 - 50 [uW/cm2/nm]"/>
                 <LightCard style={getLightStyle27(props.text[3])} value={props.text[3]} reference="REF:27 - 56 [uW/cm2/nm]"/>
                 <LightCard style={getLightStyle40(props.text[4])} value={props.text[4]} reference="REF:40 - 63 [uW/cm2/nm]"/>
                 <LightCard style={getLightStyle27(props.text[5])} value={props.text[5]} reference="REF:27 - 56 [uW/cm2/nm]"/>
