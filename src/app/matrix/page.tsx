@@ -89,7 +89,7 @@ export default function MatrixPage() {
                 const value = event.target.value;
                 const floatValue = value.getFloat32(0, true);
                 setLightData((prev) => 
-                        prev.map((val, idx) => (idx === selectedPosition ? floatValue : val))
+                        prev.map((val, idx) => (idx === selectedPosition ? floatValue.toFixed(2) : val))
                     );
             };
     
