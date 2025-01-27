@@ -68,11 +68,11 @@ export default function Matrix(props: MatrixProps) {
           {text.map((value, index) => {
                 const style = getLightStyleForIndex(index, value); // Asignamos el estilo según el índice
                 const isSelected = index === selectedPosition;
-                const borderColor = isSelected ? "border-blue-500" : "border-transparent";
+                const borderColor = isSelected ? "border-blue-500 4px solid" : "border-transparent";
 
                 return (
                         <LightCard
-                            borderSelected={{border: `4px solid ${borderColor}`}} 
+                            borderSelected={{borderColor}} 
                             key={index}
                             style={{ ...style }}
                             value={value}
