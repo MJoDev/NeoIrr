@@ -26,6 +26,7 @@ export default function MatrixPage() {
     const [selectedPosition, setSelectedPosition] = useState<number | null>(null);
 
     const handleCardSelect = (position: number) => {
+        console.log("card selected: " + position);
         setSelectedPosition(position);
     };
 
@@ -187,7 +188,7 @@ export default function MatrixPage() {
                             <strong>3)</strong> Press the <strong><span className="text-red-500">Red</span> Button</strong> in the Device.
                         </p>
                         </div>
-                        <button onClick={readData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
+                        <button onClick={readData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5 disabled:opacity-30" disabled={isReading}>TEST</button>
                         <p className="text-xl mt-2 text-center">
                                 {timers.button2 > 0 ? `${timers.button2} Seconds Left` : ""}
                         </p>
@@ -203,9 +204,9 @@ export default function MatrixPage() {
             {server ? <div className="ml-2 mx-2 grid grid-cols-2"> 
                 <BackButton/>
                 {!isNextClicked ? (
-                    <button onClick={toggleSection} className="rounded-full border border-green-500 bg-green-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5" disabled={isReading}>NEXT</button>
+                    <button onClick={toggleSection} className="rounded-full border border-green-500 bg-green-500 flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-5 mx-5 disabled:opacity-50" disabled={isReading}>NEXT</button>
                 ) : (
-                    <button onClick={handleReadAndSaveClick} className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5" disabled={isReading}>
+                    <button onClick={handleReadAndSaveClick} className="rounded-full border border-blue-500 bg-blue-500 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition mx-5 ml-5 disabled:opacity-50" disabled={isReading}>
                         SAVE
                     </button>
                 )}
