@@ -11,10 +11,12 @@ export default function RecordPage() {
     const [selectedRecord, setSelectedRecord] = useState<any | null>(null);
     const router = useRouter();
     const [ eliminate, setEliminate ] = useState(false);
+    const [ recordExist, setRecordsExist ] = useState(false);
 
     useEffect(() => {
         const records = localStorage.getItem('savedRecords');
         if (records) {
+          setRecordsExist(false)
           setSavedRecords(JSON.parse(records));
         }
       }, []);
@@ -95,12 +97,21 @@ export default function RecordPage() {
                         <form>
                         <div className="space-y-4">
                             <div className="grid items-center">
-                                {savedRecords.map((record, index) => (
+                              {
+                                (savedRecords.length > 0) ? (<div>
+                                  {savedRecords.map((record, index) => (
                                     <div className="flex mb-10" key={index}>
                                         <label className="ml-10 text-sm font-medium text-gray-700" onClick={() => handleDoubleClick(record)}>TAG/SN/ID: {record.id}</label>
                                         <input type="checkbox" checked={selectedRecords.has(index)} onChange={() => handleCheckboxChange(index)} className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
                                     </div>
                                 ))}
+                                </div>) : (
+                                  <div className="flex justify-center mb-10">
+                                    <label className=" text-2xl font-medium text-gray-700 text-center justify-center flex" >No records available</label>
+                                  </div>
+                                ) 
+                              }
+                                
                                 
                             </div>
                         </div>
@@ -126,9 +137,6 @@ export default function RecordPage() {
                             </div>     
                           )}
                          
-                          
-                          
-                          
                         
                     </div>
                   )}
