@@ -26,24 +26,24 @@ export default function Matrix(props: MatrixProps) {
     const getLightStyle27 = (text: number) => getLightStyle(text, [27, 56], [10, 12]);
 
     const lightData = [
-        { style: getLightStyle24(props.text[0]), value: props.text[0], reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { style: getLightStyle38(props.text[1]), value: props.text[1], reference: "REF:38 - 59 [uW/cm2/nm]" },
-        { style: getLightStyle24(props.text[2]), value: props.text[2], reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { style: getLightStyle27(props.text[3]), value: props.text[3], reference: "REF:27 - 56 [uW/cm2/nm]" },
-        { style: getLightStyle40(props.text[4]), value: props.text[4], reference: "REF:40 - 63 [uW/cm2/nm]" },
-        { style: getLightStyle27(props.text[5]), value: props.text[5], reference: "REF:27 - 56 [uW/cm2/nm]" },
-        { style: getLightStyle24(props.text[6]), value: props.text[6], reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { style: getLightStyle38(props.text[7]), value: props.text[7], reference: "REF:38 - 59 [uW/cm2/nm]" },
-        { style: getLightStyle24(props.text[8]), value: props.text[8], reference: "REF:24 - 50 [uW/cm2/nm]" }
+        { style: getLightStyle24(text[0]), value: text[0], reference: "REF:24 - 50 [uW/cm2/nm]" },
+        { style: getLightStyle38(text[1]), value: text[1], reference: "REF:38 - 59 [uW/cm2/nm]" },
+        { style: getLightStyle24(text[2]), value: text[2], reference: "REF:24 - 50 [uW/cm2/nm]" },
+        { style: getLightStyle27(text[3]), value: text[3], reference: "REF:27 - 56 [uW/cm2/nm]" },
+        { style: getLightStyle40(text[4]), value: text[4], reference: "REF:40 - 63 [uW/cm2/nm]" },
+        { style: getLightStyle27(text[5]), value: text[5], reference: "REF:27 - 56 [uW/cm2/nm]" },
+        { style: getLightStyle24(text[6]), value: text[6], reference: "REF:24 - 50 [uW/cm2/nm]" },
+        { style: getLightStyle38(text[7]), value: text[7], reference: "REF:38 - 59 [uW/cm2/nm]" },
+        { style: getLightStyle24(text[8]), value: text[8], reference: "REF:24 - 50 [uW/cm2/nm]" }
       ];
     
       return (
         <div className="flex flex-col items-center justify-center space-y-4 mt-10 mb-10">
           <div className="grid grid-cols-3 gap-4">
-            {lightData.map((data, index) => {
+            {text.map((value, index) => {
                 const isSelected = index === selectedPosition;
                 const borderColor = isSelected ? "border-blue-500" : "border-transparent";
-                return <LightCard key={index} style={{ ...data.style, border: `2px solid ${borderColor}` }}value={data.value} reference={data.reference} onClick={() => onCardSelect} />
+                return <LightCard key={index} style={{ ...lightData[index].style, border: `2px solid ${borderColor}` }}value={value} reference={lightData[index].reference} onClick={() => onCardSelect} />
             })}
           </div>
         </div>
