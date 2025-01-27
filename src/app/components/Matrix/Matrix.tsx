@@ -43,7 +43,7 @@ export default function Matrix(props: MatrixProps) {
             {text.map((value, index) => {
                 const isSelected = index === selectedPosition;
                 const borderColor = isSelected ? "border-blue-500" : "border-transparent";
-                return <LightCard key={index} style={{ ...lightData[index].style, border: `2px solid ${borderColor}` }}value={value} reference={lightData[index].reference} onClick={() => onCardSelect} />
+                return <LightCard key={index} borderSelected={{border: `4px solid ${borderColor}`}} style={{ ...lightData[index].style }} value={value} reference={lightData[index].reference} onClick={() => onCardSelect} />
             })}
           </div>
         </div>

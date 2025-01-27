@@ -7,12 +7,15 @@ import { useState } from "react";
 import "./style.css";
 import BluetoothIcon from "../utils/icons/bluetoothIcon";
 import { useBluetooth } from "../utils/BluetoothContext";
+import LightCard from "../components/LightCard/Lightcard";
  
 export default function ConfigPage() {
 
     const [ isDeviceConnected, setIsDeviceConnected ] = useState(false);
     const [ error, setError] = useState(false);
     const { setDevice, setServer } = useBluetooth();
+    const [selectedPosition, setSelectedPosition] = useState(false)
+    
 
     const connectToDevice = async () => {
         try {
@@ -39,6 +42,12 @@ export default function ConfigPage() {
         }
       };
 
+    const handleCardSelect = () => {
+        setSelectedPosition(true);
+    };
+
+
+
     return (
         <div className="flex flex-col h-screen justify-between"> 
             <div className="mx-4">
@@ -49,6 +58,7 @@ export default function ConfigPage() {
                     Press the <strong><span className="text-blue-500">Blue</span> Button</strong> in the Device and then press the &quot;CONNECT&ldquo; <strong>Button</strong> below.
                 </div> 
                 <button onClick={connectToDevice} className="check flex">CONNECT <BluetoothIcon className="w-6 h-6"/></button>
+                        
                 
                 <div className="mt-[40vh]">
                   {isDeviceConnected && <StatusOK></StatusOK>} 
