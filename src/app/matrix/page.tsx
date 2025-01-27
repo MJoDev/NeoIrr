@@ -24,13 +24,6 @@ export default function MatrixPage() {
     const proximityIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const [timers, setTimers] = useState({ button1: 0, button2: 0});
 
-    
-    useEffect(() => {
-        setLightData((prev) => ({
-            ...prev
-        }));
-    }, [lightData])
-
     // Función para cambiar la sección
     const toggleSection = () => {
         setShowSection(prevSection => (prevSection === 'section1' ? 'section2' : 'section1'));
@@ -78,41 +71,35 @@ export default function MatrixPage() {
             return;
         }
         try {
-            // Inicializa el array de datos
-            const updatedData: any[] = [];
             setIsReading(true)
             // Bucle para ejecutar 9 veces
+            await characteristic.startNotifications();
+            
             for (let i = 0; i < 9; i++) {
                 setTimers((prev) => ({ ...prev, button2: 10 })); // Actualiza el temporizador para cada iteración
                 
-                await characteristic.startNotifications();
-    
                 const handleValueChange = (event: any) => {
                     const value = event.target.value;
                     const floatValue = value.getFloat32(0, true);
                     console.log(`Valor recibido en la iteración ${i}: ${floatValue.toFixed(2)}`);
-                    updatedData.push(floatValue.toFixed(2)); // Agrega el valor al array
                     setLightData((prev) => ({
                         ...prev,
-                        [i]: updatedData[i],
+                        [i]: floatValue.toFixed(2),
                     }));
                 };
     
                 characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
-                
                 // Esperar 10 segundos
                 await new Promise((resolve) => setTimeout(resolve, 10000));
-    
-                await characteristic.stopNotifications();
                 characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
-                console.log(`Notificaciones detenidas para la iteración ${i}`);
                 
             }
+            await characteristic.stopNotifications();
+            
     
             // Actualiza el estado con todos los datos recolectados
             
             setIsReading(false);
-            console.log('Proceso completado. Datos recolectados:', updatedData);
     
         } catch (error) {
             console.error('Error manejando la característica:', error);
