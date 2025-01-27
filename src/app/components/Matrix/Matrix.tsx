@@ -1,4 +1,4 @@
-import LightCard  from "../LightCard/LightCard";
+import LightCard  from "../LightCard/Lightcard";
 interface MatrixProps {
     text: any[];
 }
