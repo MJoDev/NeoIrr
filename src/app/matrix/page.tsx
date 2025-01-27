@@ -23,6 +23,12 @@ export default function MatrixPage() {
     const [isReading, setIsReading] = useState(true);
     const proximityIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const [timers, setTimers] = useState({ button1: 0, button2: 0});
+    const [selectedPosition, setSelectedPosition] = useState<number | null>(null);
+
+    const handleCardSelect = (position: number) => {
+        setSelectedPosition(position);
+    };
+
 
     // Función para cambiar la sección
     const toggleSection = () => {
@@ -70,30 +76,29 @@ export default function MatrixPage() {
             console.error('La característica no está inicializada.');
             return;
         }
+        if(!selectedPosition){
+            alert("Select a field!")
+        }
         try {
             setIsReading(true)
-            // Bucle para ejecutar 9 veces
-            await characteristic.startNotifications();
             
-            for (let i = 0; i < 9; i++) {
-                setTimers((prev) => ({ ...prev, button2: 10 })); // Actualiza el temporizador para cada iteración
+            await characteristic.startNotifications();
+            setTimers((prev) => ({ ...prev, button2: 10 })); // Actualiza el temporizador para cada iteración
                 
-                const handleValueChange = (event: any) => {
-                    const value = event.target.value;
-                    const floatValue = value.getFloat32(0, true);
-                    console.log(`Valor recibido en la iteración ${i}: ${floatValue.toFixed(2)}`);
-                    setLightData((prev) => ({
-                        ...prev,
-                        [i]: floatValue.toFixed(2),
-                    }));
-                };
+            const handleValueChange = (event: any) => {
+                const value = event.target.value;
+                const floatValue = value.getFloat32(0, true);
+                setLightData((prev) => 
+                        prev.map((val, idx) => (idx === selectedPosition ? floatValue : val))
+                    );
+            };
     
-                characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
-                // Esperar 10 segundos
-                await new Promise((resolve) => setTimeout(resolve, 10000));
-                characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
+            characteristic.addEventListener('characteristicvaluechanged', handleValueChange);
+            // Esperar 10 segundos
+            await new Promise((resolve) => setTimeout(resolve, 10000));
+            characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
                 
-            }
+            
             await characteristic.stopNotifications();
             
     
@@ -172,17 +177,20 @@ export default function MatrixPage() {
                     <div>
                         <div className="text-xl text-center mt-6 mb-4">
                         <p>
-                            <strong>1)</strong> Press Test.
+                            <strong>1)</strong> Click a field
                         </p>
                         <p>
-                            <strong>2)</strong> Press the <strong><span className="text-red-500">Red</span> Button</strong> in the Device.
+                            <strong>2)</strong> Press Test
+                        </p>
+                        <p>
+                            <strong>3)</strong> Press the <strong><span className="text-red-500">Red</span> Button</strong> in the Device.
                         </p>
                         </div>
                         <button onClick={readData} className="rounded-md border border-gray-500 px-4 py-2 mx-auto flex mb-5">TEST</button>
                         <p className="text-xl mt-2 text-center">
                                 {timers.button2 > 0 ? `${timers.button2} Seconds Left` : ""}
                         </p>
-                        <Matrix text={lightData}/>
+                        <Matrix text={lightData} selectedPosition={selectedPosition} onCardSelect={handleCardSelect}/>
                     </div>
                 )}</div> : <div>
                 <div className="text-xl text-center mt-6 mb-4">
