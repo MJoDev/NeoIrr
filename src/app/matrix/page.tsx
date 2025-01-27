@@ -33,6 +33,7 @@ export default function MatrixPage() {
 
     const readProximityData = async () => {
         const characteristic = proximityCharacteristic;
+        setIsReading(true)
         if (!characteristic) {
             console.error('La característica no está inicializada.');
             return;
@@ -53,11 +54,12 @@ export default function MatrixPage() {
     
             // Esperar 10 segundos
             await new Promise((resolve) => setTimeout(resolve, 10000));
-    
+            
             await characteristic.stopNotifications();
             characteristic.removeEventListener('characteristicvaluechanged', handleValueChange);
     
             console.log('Notificaciones detenidas y valor congelado.');
+            setIsReading(false)
         } catch (error) {
             console.error('Error manejando la característica:', error);
         }
@@ -72,7 +74,7 @@ export default function MatrixPage() {
         try {
             // Inicializa el array de datos
             const updatedData: any[] = [];
-    
+            setIsReading(true)
             // Bucle para ejecutar 9 veces
             for (let i = 0; i < 9; i++) {
                 setTimers((prev) => ({ ...prev, button2: 10 })); // Actualiza el temporizador para cada iteración
@@ -133,7 +135,7 @@ export default function MatrixPage() {
 
     const handleReadAndSaveClick = async () => {
         
-        if (proximityData > 0 && !setIsReading) {
+        if (proximityData && !setIsReading) {
         const dataToSave = {
           proximityData,
           lightData,
