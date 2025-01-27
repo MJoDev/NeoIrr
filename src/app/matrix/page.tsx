@@ -135,8 +135,9 @@ export default function MatrixPage() {
        };
 
     const handleReadAndSaveClick = async () => {
-        
-        if (!proximityData && !setIsReading) {
+        console.log("Proximity DATA: ", proximityData)
+        console.log("LightData Data: ", lightData)
+        if (proximityData && lightData && !isReading) {
         const dataToSave = {
           proximityData,
           lightData,
