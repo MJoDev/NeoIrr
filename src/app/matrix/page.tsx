@@ -23,7 +23,7 @@ export default function MatrixPage() {
     const [isReading, setIsReading] = useState(true);
     const proximityIntervalRef = useRef<NodeJS.Timeout | null>(null);
     const [timers, setTimers] = useState({ button1: 0, button2: 0});
-    const [selectedPosition, setSelectedPosition] = useState<number | null>(null);
+    const [selectedPosition, setSelectedPosition] = useState<number>(-1); 
 
     const handleCardSelect = (position: number) => {
         console.log("card selected: " + position);
@@ -136,7 +136,7 @@ export default function MatrixPage() {
 
     const handleReadAndSaveClick = async () => {
         
-        if (proximityData && !setIsReading) {
+        if (!proximityData && !setIsReading) {
         const dataToSave = {
           proximityData,
           lightData,

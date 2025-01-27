@@ -14,9 +14,7 @@ export default function ConfigPage() {
     const [ isDeviceConnected, setIsDeviceConnected ] = useState(false);
     const [ error, setError] = useState(false);
     const { setDevice, setServer } = useBluetooth();
-    const [selectedPosition, setSelectedPosition] = useState(false)
     
-
     const connectToDevice = async () => {
         try {
           const device = await navigator.bluetooth.requestDevice({
@@ -41,12 +39,6 @@ export default function ConfigPage() {
           setError(true);
         }
       };
-
-    const handleCardSelect = () => {
-        setSelectedPosition(true);
-    };
-
-
 
     return (
         <div className="flex flex-col h-screen justify-between"> 
