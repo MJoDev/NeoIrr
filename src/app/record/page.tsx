@@ -61,6 +61,9 @@ export default function RecordPage() {
             ...selectedRecord,
             id: selectedRecord.id,
             date: selectedRecord.date,
+            time: selectedRecord.time,
+            intensidad: selectedRecord.intensidad,
+            obs: selectedRecord.obs,
             proximityData: selectedRecord.proximityData,
             lightData: selectedRecord.lightData,
           };
@@ -122,16 +125,18 @@ export default function RecordPage() {
                           <p>{`MODE: ${isMatrixMode(selectedRecord.lightData) ? 'MATRIX' : 'GENERAL'}`}</p>
                           <p>{`DATE: ${selectedRecord.date}`}</p>
                           <p>{`TAG/SN/ID: ${selectedRecord.id}`}</p>
-                          <p>OB.: </p>
+                          <p>{`HORAS DE USO: ${selectedRecord.time}`}</p>
+                          <p>{`INTENSIDAD (L/M/H)?: ${selectedRecord.intensidad}`}</p>
+                          <p>{`OB.: ${selectedRecord.obs}`} </p>
                           <p>{`P(0,y) = ${selectedRecord.proximityData}`}</p>
                           {!isMatrixMode(selectedRecord.lightData) ? (
                             <p>{`G(x,y) = ${selectedRecord.lightData}`}</p>
                           ) : (
                             <div>
-                               <p className="mb-5">{`G(x,y) =`}</p>
-                               <p>{`T01 =${selectedRecord.lightData[0]}, T02 =${selectedRecord.lightData[1]}, TO3 = ${selectedRecord.lightData[2]}`}</p>
-                               <p>{`T11 =${selectedRecord.lightData[3]}, T12 =${selectedRecord.lightData[4]}, T13 = ${selectedRecord.lightData[5]}`}</p>
-                               <p>{`T21 =${selectedRecord.lightData[6]}, T22 =${selectedRecord.lightData[7]}, T23 = ${selectedRecord.lightData[8]}`}</p>
+                               <p className="mb-5">{`M(x,y) =`}</p>
+                               <p>{`T00 =${selectedRecord.lightData[0]}, T01 =${selectedRecord.lightData[1]}, TO2 = ${selectedRecord.lightData[2]}`}</p>
+                               <p>{`T10 =${selectedRecord.lightData[3]}, T11 =${selectedRecord.lightData[4]}, T12 = ${selectedRecord.lightData[5]}`}</p>
+                               <p>{`T20 =${selectedRecord.lightData[6]}, T21 =${selectedRecord.lightData[7]}, T22 = ${selectedRecord.lightData[8]}`}</p>
                             </div>     
                           )}
                          
