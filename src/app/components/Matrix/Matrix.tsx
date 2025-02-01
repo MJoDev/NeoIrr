@@ -12,7 +12,7 @@ export default function Matrix(props: MatrixProps) {
     const getLightStyle = (text: string, range: [number, number], lightGrayValues: number[]) => {
         const parsedText = parseFloat(text);
         if (parsedText >= range[0] && parsedText <= range[1]) {
-            return { color: "blue" };
+            return { color: "black" };
         } else if (lightGrayValues.includes(parsedText)) {
             return { color: "lightgray" };
         } else {
@@ -25,15 +25,15 @@ export default function Matrix(props: MatrixProps) {
     const getLightStyle1959 = (text: string) => getLightStyle(text, [19, 59], [1,10, 12, 21]);
 
     const lightData = [
-        { reference: "18 - 35,1 | 36 - 56,7" },
-        { reference: "19 - 37,5 | 38 - 59,8" },
-        { reference: "18 - 35,1 | 36 - 56,7" },
-        { reference: "19 - 37,5 | 38 - 59,8" },
-        { reference: "20 - 39 | 40 - 63" },
-        { reference: "19 - 37,5 | 38 - 59,8" },
-        { reference: "18 - 35,1 | 36 - 56,7" },
-        { reference: "19 - 37,5 | 38 - 59,8" },
-        { reference: "18 - 35,1 | 36 - 56,7" }
+        { reference: "Ref: 18 - 35,1 | 36 - 56,7" },
+        { reference: "Ref: 19 - 37,5 | 38 - 59,8" },
+        { reference: "Ref: 18 - 35,1 | 36 - 56,7" },
+        { reference: "Ref: 19 - 37,5 | 38 - 59,8" },
+        { reference: "Ref: 20 - 39 | 40 - 63" },
+        { reference: "Ref: 19 - 37,5 | 38 - 59,8" },
+        { reference: "Ref: 18 - 35,1 | 36 - 56,7" },
+        { reference: "Ref: 19 - 37,5 | 38 - 59,8" },
+        { reference: "Ref: 18 - 35,1 | 36 - 56,7" }
       ];
     
       const getLightStyleForIndex = (index: number, value: number) => {
