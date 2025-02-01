@@ -31,7 +31,7 @@ const SharePage = () => {
         window.location.href = `https://wa.me/?text=${encodedDataString}`;
       }
     } if (dataMatrix) {
-      const dataString = ` ID: ${dataMatrix.id}\n Date: ${dataMatrix.date}\n\n P(0, y):\n${dataMatrix.proximityData}\n\n G(x, y):\n${dataMatrix.lightData}`;
+      const dataString = ` ID: ${dataMatrix.id}\n Date: ${dataMatrix.date}\n\n P(0, y):\n${dataMatrix.proximityData}\n\n M(x, y):\n${dataMatrix.lightData}`;
       const encodedDataString = encodeURIComponent(dataString);
     if (method === 'email') {
       window.location.href = `mailto:?subject=Sensor Data&body=${encodedDataString}`;
