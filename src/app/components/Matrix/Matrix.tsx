@@ -12,7 +12,7 @@ export default function Matrix(props: MatrixProps) {
     const getLightStyle = (text: string, range: [number, number], lightGrayValues: number[]) => {
         const parsedText = parseFloat(text);
         if (parsedText >= range[0] && parsedText <= range[1]) {
-            return { color: "black" };
+            return { color: "blue" };
         } else if (lightGrayValues.includes(parsedText)) {
             return { color: "lightgray" };
         } else {
@@ -20,43 +20,42 @@ export default function Matrix(props: MatrixProps) {
         }
     };
 
-    const getLightStyle24 = (text: string) => getLightStyle(text, [24, 50], [0, 2, 20, 22]);
-    const getLightStyle38 = (text: string) => getLightStyle(text, [28, 59], [1, 21]);
-    const getLightStyle40 = (text: string) => getLightStyle(text, [40, 63], [11]);
-    const getLightStyle27 = (text: string) => getLightStyle(text, [27, 56], [10, 12]);
+    const getLightStyle1836 = (text: string) => getLightStyle(text, [18, 57], [0, 2, 20, 22]);
+    const getLightStyle2063 = (text: string) => getLightStyle(text, [20, 63], [11]);
+    const getLightStyle1959 = (text: string) => getLightStyle(text, [19, 59], [1,10, 12, 21]);
 
     const lightData = [
-        { reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { reference: "REF:38 - 59 [uW/cm2/nm]" },
-        { reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { reference: "REF:27 - 56 [uW/cm2/nm]" },
-        { reference: "REF:40 - 63 [uW/cm2/nm]" },
-        { reference: "REF:27 - 56 [uW/cm2/nm]" },
-        { reference: "REF:24 - 50 [uW/cm2/nm]" },
-        { reference: "REF:38 - 59 [uW/cm2/nm]" },
-        { reference: "REF:24 - 50 [uW/cm2/nm]" }
+        { reference: "18 - 35,1 | 36 - 56,7" },
+        { reference: "19 - 37,5 | 38 - 59,8" },
+        { reference: "18 - 35,1 | 36 - 56,7" },
+        { reference: "19 - 37,5 | 38 - 59,8" },
+        { reference: "20 - 39 | 40 - 63" },
+        { reference: "19 - 37,5 | 38 - 59,8" },
+        { reference: "18 - 35,1 | 36 - 56,7" },
+        { reference: "19 - 37,5 | 38 - 59,8" },
+        { reference: "18 - 35,1 | 36 - 56,7" }
       ];
     
       const getLightStyleForIndex = (index: number, value: number) => {
         switch (index) {
             case 0:
-                return getLightStyle24(`${value}`);
+                return getLightStyle1836(`${value}`);
             case 1:
-                return getLightStyle38(`${value}`);
+                return getLightStyle1959(`${value}`);
             case 2: 
-                return getLightStyle24(`${value}`);
+                return getLightStyle1836(`${value}`);
             case 3:
-                return getLightStyle27(`${value}`);
+                return getLightStyle1959(`${value}`);
             case 4:
-                return getLightStyle40(`${value}`);
+                return getLightStyle2063(`${value}`);
             case 5:
-                return getLightStyle27(`${value}`);
+                return getLightStyle1959(`${value}`);
             case 6:
-                return getLightStyle24(`${value}`);
+                return getLightStyle1836(`${value}`);
             case 7: 
-                return getLightStyle38(`${value}`);
+                return getLightStyle1959(`${value}`);
             case 8:
-                return getLightStyle24(`${value}`);
+                return getLightStyle1836(`${value}`);
             default:
                 return {};
         }
