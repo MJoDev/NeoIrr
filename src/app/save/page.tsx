@@ -43,7 +43,7 @@ const SavePage = () => {
       existingRecords.push(newRecord);
       localStorage.setItem('savedRecords', JSON.stringify(existingRecords));
       localStorage.removeItem('currentData');
-      alert('Data saved successfully!');
+      alert('Data Saved Successfully!');
       router.push('/record');
     } else if (matrixData && date && id) {
       const record = {
@@ -55,7 +55,7 @@ const SavePage = () => {
       const savedRecords = JSON.parse(localStorage.getItem('savedRecords') || '[]');
       savedRecords.push(record);
       localStorage.setItem('savedRecords', JSON.stringify(savedRecords));
-      alert('Data saved successfully!');
+      alert('Data Saved Successfully!');
       localStorage.removeItem('matrixData');
       router.push('/record'); // Redirect to home or records page after saving
     } else {
