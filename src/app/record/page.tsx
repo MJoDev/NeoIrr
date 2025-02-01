@@ -102,13 +102,13 @@ export default function RecordPage() {
                                 (savedRecords.length > 0) ? (<div>
                                   {savedRecords.map((record, index) => (
                                     <div className="flex mb-10" key={index}>
-                                        <label className="ml-10 text-sm font-medium text-gray-700" onClick={() => handleDoubleClick(record)}>TAG/SN/ID: {record.id}</label>
+                                        <label className="ml-10 text-sm font-medium text-gray-700" onClick={() => handleDoubleClick(record)}>TAG/SN/ID: {record.id} | Horas: {record.time ?? 'N/A'} | Intensidad: {record.intensidad ?? 'N/A'} | Obs: {record.obs ?? 'N/A'}</label>
                                         <input type="checkbox" checked={selectedRecords.has(index)} onChange={() => handleCheckboxChange(index)} className="h-4 w-4 text-black-600 border-gray-300 rounded flex mx-5"/>
                                     </div>
                                 ))}
                                 </div>) : (
                                   <div className="flex justify-center mb-10">
-                                    <label className=" text-2xl font-medium text-gray-700 text-center justify-center flex" >No records available</label>
+                                    <label className=" text-2xl font-medium text-gray-700 text-center justify-center flex" >No Records Available!</label>
                                   </div>
                                 ) 
                               }
