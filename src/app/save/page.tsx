@@ -25,9 +25,7 @@ const SavePage = () => {
       } catch (error) {
         console.error('Error parsing storedData:', error);
       }
-    }
-    
-    if (matrixDataRaw) {
+    }else if (matrixDataRaw) {
       try {
         setMatrixData(JSON.parse(matrixDataRaw)); // Assuming setMatrixData expects an array
       } catch (error) {
@@ -111,7 +109,7 @@ const SavePage = () => {
                 <div className="bg-black text-white text-4xl text-center font-bold mb-5 mt-10">
                     REC
                 </div> 
-                { data && (
+                { data ? (
                   <div className='grid grid-cols-2 gap-2'>
                   <button className="bg-gray-800 text-white text-3xl text-center font-bold">
                       GENERAL
@@ -120,8 +118,7 @@ const SavePage = () => {
                       MATRIX
                   </button>  
                    </div>
-                )}
-                { matrixData && (
+                ) : (
                   <div className='grid grid-cols-2 gap-2'>
                   <button className="bg-gray-400 text-white text-3xl text-center font-bold">
                       GENERAL

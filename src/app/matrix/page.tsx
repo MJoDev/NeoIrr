@@ -124,6 +124,11 @@ export default function MatrixPage() {
     
         return () => clearTimeout(timer); // Limpia el temporizador en cada render
       }, [timers]);
+
+      useEffect(() => {
+        localStorage.removeItem('currentData');
+        localStorage.removeItem('matrixData');
+      }, []);
       
 
     const getProximityStyle = () => {
