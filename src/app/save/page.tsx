@@ -141,15 +141,15 @@ const SavePage = () => {
                       </div>
                       <div className='mt-5'>
                           <label className="block mb-2 text-md font-medium text-gray-900">HsU:</label>
-                          <input type="text" placeholder="Hours of Use" value={id} onChange={(e) => setHsU(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
+                          <input type="text" placeholder="Hours of Use" value={HsU} onChange={(e) => setHsU(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
                       </div>
                       <div className='mt-5'>
                           <label className="block mb-2 text-md font-medium text-gray-900">Intensity</label>
-                          <input type="text" placeholder="Intensity" value={id} onChange={(e) => setIntensity(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
+                          <input type="text" placeholder="Intensity" value={intensity} onChange={(e) => setIntensity(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
                       </div>
                       <div className='mt-5'>
                           <label className="block mb-2 text-md font-medium text-gray-900">Observations</label>
-                          <input type="text" placeholder="Observations" value={id} onChange={(e) => setObservations(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
+                          <input type="text" placeholder="Observations" value={observations} onChange={(e) => setObservations(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
                       </div>
                  </div>
                 )}
