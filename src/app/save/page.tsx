@@ -107,7 +107,7 @@ const SavePage = () => {
         <div className="flex flex-col h-screen justify-between"> 
             <div className="mx-4">
                 <div className="bg-black text-white text-4xl text-center font-bold mb-5 mt-10">
-                    REC
+                    SAVE
                 </div> 
                 { data ? (
                   <div className='grid grid-cols-2 gap-2'>
