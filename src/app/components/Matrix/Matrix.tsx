@@ -11,11 +11,12 @@ export default function Matrix(props: MatrixProps) {
 
     const getLightStyle = (text: string, range: [number, number], lightGrayValues: number[]) => {
         const parsedText = parseFloat(text);
-        if (parsedText >= range[0] && parsedText <= range[1]) {
-            return { color: "black" };
-        } else if (lightGrayValues.includes(parsedText)) {
+        if (lightGrayValues.includes(parsedText)) {
             return { color: "lightgray" };
-        } else {
+        } else if (parsedText >= range[0] && parsedText <= range[1]) {
+            return { color: "black" };
+        } 
+         else {
             return { color: "red" };
         }
     };
