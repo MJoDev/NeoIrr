@@ -8,6 +8,11 @@ const SavePage = () => {
   const [data, setData] = useState<any>(null);
   const [id, setId] = useState('');
   const [date, setDate] = useState('');
+  const [HsU, setHsU] = useState('');
+  const [ intensity, setIntensity] = useState('');
+  const [ observations, setObservations] = useState('');
+
+
   const router = useRouter();
 
   useEffect(() => {
@@ -38,6 +43,9 @@ const SavePage = () => {
         ...data,
         id,
         date,
+        HsU,
+        intensity,
+        observations
       };
       const existingRecords = JSON.parse(localStorage.getItem('savedRecords') || '[]');
       existingRecords.push(newRecord);
@@ -49,6 +57,9 @@ const SavePage = () => {
       const record = {
         id,
         date,
+        HsU,
+        intensity,
+        observations,
         proximityData: matrixData.proximityData,
         lightData: matrixData.lightData,
       };
@@ -69,6 +80,9 @@ const SavePage = () => {
         ...data,
         id,
         date,
+        HsU,
+        intensity,
+        observations
       };
       localStorage.setItem('shareData', JSON.stringify(shareData));
       router.push('/share');
@@ -76,6 +90,9 @@ const SavePage = () => {
       const shareData = {
         id,
         date,
+        HsU,
+        intensity,
+        observations,
         proximityData: matrixData.proximityData,
         lightData: matrixData.lightData,
       };
@@ -124,6 +141,18 @@ const SavePage = () => {
                       <div className='mt-5'>
                           <label className="block mb-2 text-md font-medium text-gray-900">TAG / SN / ID</label>
                           <input type="text" placeholder="TAG / SN / ID" value={id} onChange={(e) => setId(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
+                      </div>
+                      <div className='mt-5'>
+                          <label className="block mb-2 text-md font-medium text-gray-900">HsU:</label>
+                          <input type="text" placeholder="Hours of Use" value={id} onChange={(e) => setHsU(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
+                      </div>
+                      <div className='mt-5'>
+                          <label className="block mb-2 text-md font-medium text-gray-900">Intensity</label>
+                          <input type="text" placeholder="Intensity" value={id} onChange={(e) => setIntensity(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
+                      </div>
+                      <div className='mt-5'>
+                          <label className="block mb-2 text-md font-medium text-gray-900">Observations</label>
+                          <input type="text" placeholder="Observations" value={id} onChange={(e) => setObservations(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 "/>
                       </div>
                  </div>
                 )}

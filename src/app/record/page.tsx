@@ -61,9 +61,9 @@ export default function RecordPage() {
             ...selectedRecord,
             id: selectedRecord.id,
             date: selectedRecord.date,
-            time: selectedRecord.time,
-            intensidad: selectedRecord.intensidad,
-            obs: selectedRecord.obs,
+            HsU: selectedRecord.HsU,
+            intensity: selectedRecord.intensity,
+            observations: selectedRecord.observations,
             proximityData: selectedRecord.proximityData,
             lightData: selectedRecord.lightData,
           };
@@ -139,6 +139,16 @@ export default function RecordPage() {
                                <p>{`T20 =${selectedRecord.lightData[6]}, T21 =${selectedRecord.lightData[7]}, T22 = ${selectedRecord.lightData[8]}`}</p>
                             </div>     
                           )}
+                          {selectedRecord.HsU && (
+                            <p>{`HsU: ${selectedRecord.HsU}`}</p>
+                          )}
+                          {selectedRecord.intensity && (
+                            <p>{`INTENSITY: ${selectedRecord.intensity}`}</p>
+                          )}
+                          {selectedRecord.observations && (
+                            <p>{`OBSERVATIONS: ${selectedRecord.observations}`}</p>
+                          )}
+                          
                          
                         
                     </div>
