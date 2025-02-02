@@ -125,9 +125,9 @@ export default function RecordPage() {
                           <p>{`MODE: ${isMatrixMode(selectedRecord.lightData) ? 'MATRIX' : 'GENERAL'}`}</p>
                           <p>{`DATE: ${selectedRecord.date}`}</p>
                           <p>{`TAG/SN/ID: ${selectedRecord.id}`}</p>
-                          <p>{`HORAS DE USO: ${selectedRecord.time}`}</p>
-                          <p>{`INTENSIDAD (L/M/H)?: ${selectedRecord.intensidad}`}</p>
-                          <p>{`OB.: ${selectedRecord.obs}`} </p>
+                          <p>{`HORAS DE USO: ${selectedRecord.HsU}`}</p>
+                          <p>{`INTENSIDAD (L/M/H)?: ${selectedRecord.intensity}`}</p>
+                          <p>{`OB.: ${selectedRecord.observations}`} </p>
                           <p>{`P(0,y) = ${selectedRecord.proximityData}`}</p>
                           {!isMatrixMode(selectedRecord.lightData) ? (
                             <p>{`G(x,y) = ${selectedRecord.lightData}`}</p>
@@ -139,17 +139,6 @@ export default function RecordPage() {
                                <p>{`T20 =${selectedRecord.lightData[6]}, T21 =${selectedRecord.lightData[7]}, T22 = ${selectedRecord.lightData[8]}`}</p>
                             </div>     
                           )}
-                          {selectedRecord.HsU && (
-                            <p>{`HsU: ${selectedRecord.HsU}`}</p>
-                          )}
-                          {selectedRecord.intensity && (
-                            <p>{`INTENSITY: ${selectedRecord.intensity}`}</p>
-                          )}
-                          {selectedRecord.observations && (
-                            <p>{`OBSERVATIONS: ${selectedRecord.observations}`}</p>
-                          )}
-                          
-                         
                         
                     </div>
                   )}
