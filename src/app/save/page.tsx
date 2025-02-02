@@ -158,7 +158,7 @@ const SavePage = () => {
             <div>
                 
             </div>
-            <div className="ml-2 mx-2"> 
+            <div className="ml-2 mx-2 mt-10"> 
                 <div className='grid grid-cols-2'>
                     <button onClick={saveData} className="rounded-full border border-blue-800 bg-blue-800 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">SAVE</button>
                     <button  onClick={handleShareClick} disabled={isShareButtonDisabled} className="rounded-full border border-blue-600 bg-blue-600 text-white flex justify-center items-center mb-10 text-2xl gap-1 py-4 px-4 hover:scale-105 transition ml-2 mx-2">SHARE</button>
