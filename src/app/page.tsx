@@ -9,6 +9,7 @@ export default function Home(){
             <SpecialButton href={"/general"} text={"GENERAL"}></SpecialButton>
             <SpecialButton href={"/matrix"} text={"MATRIX"}></SpecialButton>
             <SpecialButton href={"/record"} text={"RECORD"}></SpecialButton>
+            <SpecialButton href={"/graph"} text={"GRAPH"}></SpecialButton>
         </div>
         <Footer></Footer>
     </div>)
