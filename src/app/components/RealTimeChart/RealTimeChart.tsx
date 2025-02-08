@@ -45,7 +45,7 @@ const RealtimeChart = ({ data, timestamps, isTestComplete }: ChartProps) => {
           animation: isTestComplete ? {} : { duration: 0 },
           scales: {
             y: { beginAtZero: true },
-            x: { display: true, title: { display: true, text: 'Tiempo' } }
+            x: { display: true, title: { display: true, text: 'Time' } }
           }
         }}
       />

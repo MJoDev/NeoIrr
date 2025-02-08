@@ -38,6 +38,7 @@ export default function GraphPage() {
             setProximityData(floatValue.toFixed(2));
           }else{
             setLightData(prev => [...prev, floatValue.toFixed(2)]);
+            console.log(lightData)
           }
         };
   
@@ -74,22 +75,12 @@ export default function GraphPage() {
       localStorage.removeItem('matrixData');
     }, []);
 
-
-
      const getProximityStyle = () => {
       const proximity = proximityData;
       if(proximityData === undefined || proximityData === 0){
         return { color: 'lightgray' };
       }
       return proximity < 30 || proximity > 50 ? { color: 'red' } : { color: 'black' };
-     };
-
-     const getLightStyle = () => {
-      const light = lightData;
-      if(lightData === undefined || lightData[0] === 0){
-        return { color: 'lightgray' };
-      }
-      return light[0] < 20 || light[0] > 63 ? { color: 'red' } : { color: 'blue' };
      };
 
     return (
@@ -139,7 +130,7 @@ export default function GraphPage() {
                 </div> }
                 
             </div>
-            <div className="ml-2 mx-2 grid grid-cols-2"> 
+            <div className="ml-2 mx-2"> 
                 <BackButton/>
             </div>
         </div>
