@@ -132,8 +132,8 @@ const SavePage = () => {
                 {(data || matrixData) && (
                   <div className='grid mt-10'>
                       <div className='mt-5'>
-                          <label className="block mb-2 text-md font-medium text-gray-900 ">DD/MM/YYY</label>
-                          <input type="date" placeholder="DD/MM/YYY" value={date} onChange={(e) => setDate(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"/>
+                          <label className="block mb-2 text-md font-medium text-gray-900 ">DD/MM/YYYY</label>
+                          <input type="date" placeholder="DD/MM/YYYY" value={date} onChange={(e) => setDate(e.target.value)} className="block w-full p-5 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500"/>
                       </div>
                       <div className='mt-5'>
                           <label className="block mb-2 text-md font-medium text-gray-900">TAG / SN / ID</label>
